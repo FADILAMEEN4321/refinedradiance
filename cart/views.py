@@ -6,8 +6,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.models import Address
 from orders.models import Order,OrderItem
-import random
 from django.http import JsonResponse
+import random
+
 
 
 
