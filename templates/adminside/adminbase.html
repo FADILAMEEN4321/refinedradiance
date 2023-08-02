@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Admin Panel</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="" />
+        <meta property="og:type" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="static/adminside/imgs/theme/favicon.svg" />
+        <!-- Template CSS -->
+        <link href="static/adminside/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <div class="screen-overlay" ></div>
+        <aside class="navbar-aside" id="offcanvas_aside">
+            <div class="aside-top">
+                <a href="index.html" class="brand-wrap">
+                    <img src="static/adminside/imgs/icons/image 1.jpg" class="logo" alt="Nest Dashboard" />
+                </a>
+                <div>
+                    <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
+                </div>
+            </div>
+            <nav >
+                <ul class="menu-aside" >
+                    <li class="menu-item active">
+                        <a class="menu-link" href="{% url 'dashboard' %}">
+                            <i class="icon material-icons md-home"></i>
+                            <span class="text">Dashboard</span>
+                        </a>
+                    </li>
+
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'sales_report' %}">
+                            <i class="icon material-icons  md-bar_chart"></i>
+                            <span class="text">Sales report</span>
+                        </a>
+                        
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="#">
+                            <i class="icon material-icons md-person"></i>
+                            <span class="text">Users</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="{% url 'user_management' %}">Users list</a>
+                            
+                        </div>
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="page-products-list.html">
+                            <i class="icon material-icons md-shopping_bag"></i>
+                            <span class="text">Products</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="{% url 'product_list' %}">All Product</a>
+                            <a href="{% url 'add_products' %}">Add Product</a>
+                            <a href="{% url 'product_image_management' %}">Product Images List</a>
+                            <a href="{% url 'add_image' %}">Add Product Images</a>
+                        </div>
+                    </li>
+                    
+                   
+                    
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'category_management' %}"> <i class="icon material-icons md-category"></i> <span class="text">Category</span> </a>
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'brand_management' %}"> <i class="icon material-icons md-stars"></i> <span class="text">Brands</span> </a>
+                    
+                    
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'add_banner' %}">
+                            <i class="icon material-icons md-comment"></i>
+                            <span class="text">Banners</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'order_management' %}">
+                            <i class="icon material-icons md-shopping_cart"></i>
+                            <span class="text">Orders</span>
+                        </a>
+                        
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'coupon_list' %}">
+                            <i class="icon material-icons md-local_offer"></i>
+                            <span class="text">Coupons</span>
+                        </a>
+                        
+                    </li>
+
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="{% url 'offer_management' %}">
+                            <i class="icon material-icons md-new_releases"></i>
+                            <span class="text">Offers</span>
+                        </a>
+                    </li>
+
+
+                    {% comment %} <li class="menu-item has-submenu">
+                        <a class="menu-link" href="page-transactions-1.html">
+                            <i class="icon material-icons md-monetization_on"></i>
+                            <span class="text">Transactions</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-transactions-1.html">Transaction 1</a>
+                            <a href="page-transactions-2.html">Transaction 2</a>
+                        </div>
+                    </li> {% endcomment %}
+
+
+                   
+
+
+                    
+                    
+                    
+
+                    
+                    
+                    
+                    {% comment %} <li class="menu-item">
+                        <a class="menu-link" disabled href="#">
+                            <i class="icon material-icons md-pie_chart"></i>
+                            <span class="text">Statistics</span>
+                        </a>
+                    </li> {% endcomment %}
+                </ul>
+                <hr />
+                <ul class="menu-aside">
+                    {% comment %} <li class="menu-item has-submenu">
+                        <a class="menu-link" href="#">
+                            <i class="icon material-icons md-settings"></i>
+                            <span class="text">Settings</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-settings-1.html">Setting sample 1</a>
+                            <a href="page-settings-2.html">Setting sample 2</a>
+                        </div>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="page-blank.html">
+                            <i class="icon material-icons md-local_offer"></i>
+                            <span class="text"> Starter page </span>
+                        </a>
+                    </li> {% endcomment %}
+                </ul>
+                <br />
+                <br />
+            </nav>
+        </aside>
+        <main class="main-wrap">
+            <header class="main-header navbar">
+                <div class="col-search">
+                    <form class="searchform">
+                        <div class="input-group">
+                            {% comment %} <input list="search_terms" type="text" class="form-control" placeholder="Search term" />
+                            <button class="btn btn-light bg" type="button"><i class="material-icons md-search"></i></button> {% endcomment %}
+                        </div>
+                        <datalist id="search_terms">
+                            <option value="Products"></option>
+                            <option value="New orders"></option>
+                            <option value="Apple iphone"></option>
+                            <option value="Ahmed Hassan"></option>
+                        </datalist>
+                    </form>
+                    
+                </div>
+                <div class="col-nav">
+                    <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"><i class="material-icons md-apps"></i></button>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            {% comment %} <a class="nav-link btn-icon" href="#">
+                                <i class="material-icons md-notifications animation-shake"></i>
+                                <span class="badge rounded-pill">3</span>
+                            </a> {% endcomment %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                        </li>
+                        
+                        <h4>{{user.username}}</h4>
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="static/adminside/imgs/fadilphoto.jpg" alt="User" /></a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                {% comment %} <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a> {% endcomment %}
+                                {% comment %} <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a> {% endcomment %}
+                                {% comment %} <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a> {% endcomment %}
+                                {% comment %} <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a> {% endcomment %}
+                                {% comment %} <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a> {% endcomment %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="{% url 'user_logout' %}"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            {% block content %} {% endblock %} 
+
+            <footer class="main-footer font-xs">
+                <div class="row pb-30 pt-15">
+                    <div class="col-sm-6">
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        &copy; Refined Radiance .
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end">All rights reserved</div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+        <script src="static/adminside/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="static/adminside/js/vendors/bootstrap.bundle.min.js"></script>
+        <script src="static/adminside/js/vendors/select2.min.js"></script>
+        <script src="static/adminside/js/vendors/perfect-scrollbar.js"></script>
+        <script src="static/adminside/js/vendors/jquery.fullscreen.min.js"></script>
+        <script src="static/adminside/js/vendors/chart.js"></script>
+        <!-- Main Script -->
+        <script src="static/adminside/js/main.js?v=1.1" type="text/javascript"></script>
+        <script src="static/adminside/js/custom-chart.js" type="text/javascript"></script>
+
+        
+        <!-- Include Toastr CSS via CDN -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
+      <!-- Include jQuery via CDN -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      
+      <!-- Include Toastr JS via CDN -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
+      <script>
+      // Initialize Toastr options
+      toastr.options = {
+          "positionClass": "toast-bottom-right",
+          "timeOut": "5000",
+          "extendedTimeOut": "2000",
+      };
+      </script>
+
+
+
+    </body>
+</html>

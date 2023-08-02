@@ -1,0 +1,452 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+<style>
+.grey-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .grey-box-content {
+    padding: 20px;
+  }
+
+  .d-flex.justify-content-end button {
+    margin-right: 10px;
+  }
+  
+
+
+
+ 
+    .wallet-card {
+      width: 300px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+    .wallet-card .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .wallet-card .logo img {
+      width: 100px;
+      height: 100px;
+    }
+    .wallet-card .balance {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .wallet-card .info {
+      display: flex;
+      justify-content: space-between;
+    }
+    .wallet-card .info span {
+      font-size: 16px;
+    }
+    .wallet-card .info .label {
+      font-weight: bold;
+    }
+  
+
+
+</style>  
+
+   <!-- ...:::: Start Breadcrumb Section:::... -->
+   <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title" style="color: white;">MY ACCOUNT</h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+    <!-- ...:::: Start Account Dashboard Section:::... -->
+    <div class="account-dashboard">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
+                        <ul role="tablist" class="nav flex-column dashboard-list">
+                            <li><a href="#dashboard" data-bs-toggle="tab"
+                                    class="nav-link btn btn-block btn-md btn-black-default-hover active">Dashboard</a>
+                            </li>
+                            <li> <a href="{% url 'orders' %}" 
+                                    class="nav-link btn btn-block btn-md btn-black-default-hover">Orders</a></li>
+                            <li><a href="#downloads" data-bs-toggle="tab"
+                                    {% comment %} class="nav-link btn btn-block btn-md btn-black-default-hover">Downloads</a></li> {% endcomment %}
+                             <li><a href="{% url 'address' %}" 
+                                    class="nav-link btn btn-block btn-md btn-black-default-hover">Addresses</a></li> 
+                            
+                            {% comment %} <li><a href="#address" data-bs-toggle="tab"
+                                        class="nav-link btn btn-block btn-md btn-black-default-hover">Addresses</a></li>         {% endcomment %}
+                             
+                                    
+                            <li>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="nav-link btn btn-block btn-md btn-black-default-hover" data-bs-toggle="modal" data-bs-target="#change_passwordModal">
+                                    Change Password
+                                    </button>
+                                    </li>
+                            <li><a href="{% url 'user_logout' %}"
+                                    class="nav-link btn btn-block btn-md btn-black-default-hover">logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
+                        <div class="tab-pane fade show active" id="dashboard">
+                            <div class="row">
+                                <div style="width:25%" class="admin-details">
+                                    <h4>Profile details. </h4>
+                                    <p><strong>Full name:</strong> {{user.first_name}} {{user.last_name}}</p>
+                                    <p><strong>Username:</strong> {{user.username}} </p>
+                                    <p><strong>Email:</strong> {{user.email}}</p>
+                                    <p><strong>Phone:</strong> {{user.phone_number}}</p>
+                                    
+    
+                                    <div class="save_button mt-3">
+                                        {% comment %} <a href="{% url 'edit_profile' %}" class="btn btn-md btn-black-default-hover">Edit</a> {% endcomment %}
+                                            <button type="button" class="btn btn-md btn-black-default-hover" data-bs-toggle="modal" data-bs-target="#editprofile">Edit</button>
+                                    </div>
+                                </div>
+    
+    
+                                 <div style="width:40%;" class="container">
+                                    <div class="row justify-content-center">
+                                      <div class="col-md-6"> 
+                                        <div class="wallet-card " style="background: linear-gradient(to right, #ff4444, #12426a);
+                                        color: white;">
+                                          <div class="logo">
+                                            
+                                          </div>
+                                          <div class="balance">
+                                            <i class="fas fa-credit-card"></i> 
+                                            Wallet Balance &#8377;{{user.wallet}}
+                                          </div>
+                                          <div class="info">
+                                            <span class="label">Card Id:</span>
+                                            <span>{{user.id}}</span>
+                                          </div>
+                                          <div class="info">
+                                            <span class="label">Cardholder Name:</span>
+                                            <span>{{user.username}}</span>
+                                          </div>
+                                         
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                            
+             
+
+                        </div> 
+                        <div class="tab-pane fade" id="orders">
+                            <h4>Orders</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>May 10, 2018</td>
+                                            <td><span class="success">Completed</span></td>
+                                            <td>$25.00 for 1 item </td>
+                                            <td><a href="cart.html" class="view">view</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>May 10, 2018</td>
+                                            <td>Processing</td>
+                                            <td>$17.00 for 1 item </td>
+                                            <td><a href="cart.html" class="view">view</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="downloads">
+                            <h4>Downloads</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Downloads</th>
+                                            <th>Expires</th>
+                                            <th>Download</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Shopnovilla - Free Real Estate PSD Template</td>
+                                            <td>May 10, 2018</td>
+                                            <td><span class="danger">Expired</span></td>
+                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic - ecommerce html template</td>
+                                            <td>Sep 11, 2018</td>
+                                            <td>Never</td>
+                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="address">
+                            
+                             <h4 class="billing-address">Your address</h4>
+                            <p>You can manage your addresses here.</p>
+                            
+    
+                                   
+                                 
+
+
+
+            </div>
+        </div>
+        <!-- ...::::ENd Contact Section:::... -->
+
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="account-details">
+                            <h3>Edit Profile </h3>
+                            <div class="login">
+                                <div class="login_form_container">
+                                    <div class="account_login_form">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Account Dashboard Section:::... -->
+
+
+
+    <!-- edit profile Modal -->
+<div class="modal fade" id="editprofile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit profile</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+
+            <div class="container">
+
+                <div id="edit-info">
+                </div>
+                  
+                  
+                <form id="editprofile" hx-post="/edit_profile/" hx-target="#edit-info" hx-trigger="submit">
+                    {% csrf_token %}
+                    
+                    <div class="default-form-box">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" value="{{user.username}}" required>
+                      </div>
+                      
+                      <div class="default-form-box">
+                        <label for="first_name">First name</label>
+                        <input type="text" id="first_name" name="first_name" value="{{user.first_name}}" required>
+                      </div>
+                      
+                      <div class="default-form-box">
+                        <label for="last_name">Last name</label>
+                        <input type="text" id="last_name" name="last_name" value="{{user.last_name}}" required>
+                      </div>
+                      
+                      <div class="default-form-box">
+                        <label for="phone_number">Phone number</label>
+                        <input type="text" id="phone_number" name="phone_number" value="{{user.phone_number}}" required pattern="[7-9]{1}[0-9]{9}">
+                        
+                      </div>
+         
+                    
+                    <div class="login_submit">
+                        <button class="btn btn-md btn-black-default-hover" hx-post="/edit_profile/" hx-target="#edit-info" hx-trigger="submit" type="submit">Save changes</button>
+                    </div>
+                </form>
+            </div>
+    </div> 
+
+
+
+
+        </div>
+        <div class="modal-footer">
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+       <!--password change Modal -->
+<div class="modal fade" id="change_passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+
+           
+                <div class="account_form" data-aos="fade-up" data-aos-delay="0">
+                    
+
+                    
+                    <div id="messageContainer">
+                        
+                      </div>
+                    
+                    <form id="passwordchange" hx-post="/change_password/" hx-target="#messageContainer" hx-trigger="submit">
+                        {% csrf_token %}
+                        <div class="default-form-box">
+                            <label>Old Password <span>*</span></label>
+                            {% comment %} <input id="oldpassword" hx-post="/check_oldpassword/" hx-trigger="keyup" hx-target="#password-error" type="password" name="old_password" required> {% endcomment %}
+                            <input id="oldpassword"  type="password" name="old_password" required>
+                            {% comment %} <div id="password-error"></div> {% endcomment %}
+                        </div>
+                        <div class="default-form-box">
+                            <label> New Password <span>*</span></label>
+                            <input id="newpassword" type="password" name="password1" required>
+                        </div>
+                        <div class="default-form-box">
+                            <label> Confirm Password <span>*</span></label>
+                            <input id="confirpassword" type="password" name="password2" required>
+                        </div>
+                        <div class="login_submit">
+                            <button id="changePasswordBtn" hx-post="/change_password/" hx-target="#messageContainer" hx-trigger="submit" class="btn btn-md btn-black-default-hover mb-4" type="submit">Save</button>
+
+                            
+                           
+
+                        </div>
+                    </form>
+                </div>
+            
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    <!---------------------------------------------------------------------------------------------->
+    <!-- to reset password change form-->
+    document.body.addEventListener('htmx:afterRequest', (event) => {
+      const form = document.getElementById('passwordchange');
+      form.reset();
+    });
+
+    <!-- to disappear passwordchange alert messages -->
+    document.body.addEventListener('htmx:afterRequest', (event) => {
+        const messageContainer = document.getElementById('messageContainer');
+        const alertMessage = messageContainer.querySelector('.alert');
+    
+        // Check if an alert message exists
+        if (alertMessage) {
+          // Wait for 3 seconds (3000 milliseconds) and then remove the alert message
+          setTimeout(() => {
+            alertMessage.remove();
+          }, 3000);
+        }
+      });
+
+      document.getElementById('passwordchange').addEventListener('htmx:afterSettle', function() {
+        setTimeout(function() {
+            location.reload();
+          }, 2000); // Add a delay of 2000 milliseconds (2 seconds)
+      });
+
+      <!---------------------------------------------------------------------------------------------->
+      <!-- to disappear edit profile alert messages -->
+    document.body.addEventListener('htmx:afterRequest', (event) => {
+        const messageContainer = document.getElementById('edit-info');
+        const alertMessage = messageContainer.querySelector('.alert');
+    
+        // Check if an alert message exists
+        if (alertMessage) {
+          // Wait for 3 seconds (3000 milliseconds) and then remove the alert message
+          setTimeout(() => {
+            alertMessage.remove();
+          }, 3000);
+        }
+      });
+  <!-- reload after edit profile-->
+      document.getElementById('editprofile').addEventListener('htmx:afterSettle', function() {
+        setTimeout(function() {
+            location.reload();
+          }, 2000); // Add a delay of 2000 milliseconds (2 seconds)
+      });
+<!---------------------------------------------------------------------------------------------->
+
+
+
+
+
+
+  </script>
+  
+  
+
+
+   {% endblock %}
+   

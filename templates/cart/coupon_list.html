@@ -1,0 +1,98 @@
+{% extends 'adminside/adminbase.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Coupon management.</h2>
+                        
+                    </div>
+                    <div>
+                        <a href="{% url 'create_coupon' %}" class="btn btn-primary btn-sm rounded">Create Coupon</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                                <select class="form-select">
+                                    <option selected>All category</option>
+                                    <option>Electronics</option>
+                                    <option>Clothes</option>
+                                    <option>Automobile</option>
+                                </select>
+                            </div>
+                            {% comment %} <div class="col-md-2 col-6">
+                                <input type="date" value="02.05.2021" class="form-control" />
+                            </div> {% endcomment %}
+                            {% comment %} <div class="col-md-2 col-6">
+                                <select class="form-select">
+                                    <option selected>Status</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div> {% endcomment %}
+                        </div>
+                    </header>
+                     <!-- card-header end// -->
+                    
+                    {% include 'includes/alerts.html' %}
+
+     
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Coupon code</th>
+                                    <th>Validity</th>
+                                    <th>Discount price</th>
+                                    <th>Minimum amount</th>
+                                    <th>Created Date</th> 
+                                    <th>Action</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for coupon in coupons %}
+                                <tr>
+                                    <td>{{coupon.coupon_code}}</td>
+                                    <td>
+                                        {% if coupon.is_expired %}
+                                        <span class="badge rounded-pill alert-danger">Expired</span>
+                                        {% else %}
+                                        <span class="badge rounded-pill alert-success">Valid</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>&#8377; {{coupon.discount_price}}</td>
+                                    <td>&#8377; {{coupon.minimum_amount}}</td>
+                                    <td>{{coupon.created_at}}</td>
+                                    <td>
+                                        {% if not coupon.is_expired %}
+                                        <a href="{% url 'edit_coupon' coupon.id %}" class="btn btn-sm font-sm rounded btn-brand">
+                                            <i class="material-icons md-edit"></i> Edit
+                                        </a>
+                                        {% endif %}
+                                        <a href="{% url 'delete_coupon' coupon.id %}" class="btn btn-sm font-sm rounded btn-brand" style="background-color: red; color: white;" onclick="return confirm('Are you sure you want to delete this Coupon?');">
+                                            <i class="material-icons md-delete_forever"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+  
+            </section>
+            <!-- content-main end// -->
+{% endblock %}
+
+{% block scripts %}
+{% include 'includes/messages.html' %}
+{% endblock scripts %}

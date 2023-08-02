@@ -1,0 +1,60 @@
+{% extends 'adminside/adminbase.html' %}
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Brand List</h2>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'add_brand' %}" class="btn btn-primary btn-sm rounded">Add Brand</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            <div class="col-lg-4 col-md-6 me-auto">
+                                <input type="text" placeholder="Search..." class="form-control" />
+                            </div>
+                            
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        {% include 'includes/alerts.html' %}
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>#ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col" class="text-end">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for brand in brands %}
+                              <tr>
+                                <td>{{brand.id}}</td>
+                                <td><b>{{ brand.name}} </b></td>
+                                <td>{{ brand.created_at }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'edit_brand' brand.id %}" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-edit"></i> Edit </a>
+                                    <a href="{% url 'delete_brand' brand.id %}" class="btn btn-sm font-sm rounded btn-brand" style="background-color: red; color: white;" onclick="return confirm('Are you sure you want to delete this brand?');">
+                                        <i class="material-icons md-delete_forever"></i> Delete
+                                      </a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- table-responsive //end -->
+                      </div>
+                      <!-- card-body end// -->
+                      </div>
+                      <!-- card end// -->
+                    
+            </section>
+            
+{% endblock %}            

@@ -1,0 +1,176 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+
+<style>
+
+
+      
+</style>
+
+
+
+
+
+
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">Checkout</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+
+
+
+
+     <!-- ...:::: Start Checkout Section:::... -->
+     <div class="checkout-section">
+        <div class="container">
+            <div class="row">
+             
+            </div>
+            <!-- Start User Details Checkout Form -->
+            <div class="checkout_form" data-aos="fade-up" data-aos-delay="400">
+                <div class="row">
+                    {% include 'includes/alerts.html' %}
+                    <div class="col-lg-6 col-md-6">
+                        <form action="{% url 'placeorder' %}" method="POST">
+                            {% csrf_token %}
+                            <h3>Billing Details</h3>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="default-form-box">
+                                        <label>Full name <span>*</span></label>
+                                        <input name="full_name" placeholder="Enter your full name" type="text" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="default-form-box">
+                                        <label>Phone number <span>*</span></label>
+                                        <input name="phone_number" placeholder="Please enter a valid 10-digit phone number" type="text" pattern="[0-9]{10}"  required>
+                                        <div class="invalid-feedback">
+                                            Please enter a valid 10-digit phone number.
+                                        </div>
+                                    </div>
+                                </div>
+ 
+                                <div class="col-12">
+                                    <div class="default-form-box">
+                                    <label>Select address <span>*</span></label>
+                                    <select class="form-select" name="address" aria-label=".form-select-lg example" required>
+                                        <option selected disabled>Select Address</option>
+                                        {% for address in user_addresses %}
+                                        <option value="{{ address.id }}">{{ address.full_name }} - {{ address.house_name }}, {{ address.city }}, {{ address.pincode }}</option>
+                                        {% endfor %}
+                                    </select> 
+
+                                </div>
+                                     
+                                </div>
+                                
+                            </div>
+                        
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                       
+                            <h3>Your order</h3>
+                            <div class="order_table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for cart_item in cart_items %}
+                                        <tr>
+                                            <td> {{ cart_item.product.name }}</td>
+                                            <td>{{ cart_item.quantity }}</td>
+                                            <td> &#8377;{{ cart_item.get_product_price }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        {% comment %} <tr>
+                                            <th>Cart Subtotal</th>
+                                            <td>$215.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping</th>
+                                            <td><strong>$5.00</strong></td>
+                                        </tr> {% endcomment %}
+                                        <tr class="order_total">
+                                            <th>Order Total</th>
+                                            <td colspan="2"><strong>&#8377;{{ cart_total }}</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                              <div class="payment_method">
+                                {% comment %} <div class="panel-default">
+                                    <label class="checkbox-default" for="currencyCod" >
+                                        {% comment %} <input type="checkbox" id="currencyCod">
+                                        <span>Cash on Delivery</span> 
+                                    </label>
+                                    
+                                    
+                                    </div> 
+                                </div>
+                                <div class="panel-default">
+                                    <label class="checkbox-default" for="currencyPaypal" >
+                                         <input type="checkbox" id="currencyPaypal">
+                                        <span>PayPal</span> 
+                                    </label>
+                                    <div id="methodPaypal" class="collapse " data-parent="#methodPaypal">
+                                        <div class="card-body1">
+                                            
+                                        </div> 
+                                    </div>{% endcomment %}
+                                </div> 
+                                <input type="hidden" name="payment_mode" value="cod">
+                                <div class="order_button pt-3">
+                                    <button class="btn btn-md btn-black-default-hover" type="submit">Place order</button>
+                                    <button  class="btn btn-md btn-black-default-hover payWithRazorpay" type="submit">Pay with razorpay</button>
+                                </div>
+                            </div>  
+                        </form>
+                    </div><div class="order_button pt-3">
+                        <a href="{% url 'add_order_address' %}"><button class="btn btn-md btn-black-default-hover" type="submit">Add Address</button></a>
+                    </div>
+                </div>
+            
+            </div> <!-- Start User Details Checkout Form -->
+        </div>
+    </div><!-- ...:::: End Checkout Section:::... -->
+
+
+
+
+
+
+
+  
+
+
+    {% endblock %}
+
+    {% block scripts %}
+{% include 'includes/messages.html' %}
+{% endblock scripts %}
+
+<!--for razorpay-->
+{% block razorpay %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+{% endblock razorpay %}

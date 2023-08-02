@@ -1,0 +1,122 @@
+{% extends 'adminside/adminbase.html' %}
+
+{% block content %}
+        <section class="content-main">
+            <div class="row">
+                <div class="col-6">
+                    <div class="content-header">
+                        <h2 class="content-title">Edit Product</h2>
+                        <div>
+                            <a href="{% url 'product_list' %}">
+                            <button class="btn btn-md rounded font-sm hover-up">Back</button>
+                            </a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        {% include 'includes/alerts.html' %}
+
+                        <div class="card-body">
+                            <form method="POST">
+                                {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>1. General info</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" placeholder="Type here" value="{{product.name}}" name="product_name" class="form-control" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Description</label>
+                                        <textarea placeholder="Type here" name="description" class="form-control" rows="4" required>{{product.description}}</textarea>
+                                    </div>
+                                    
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>2. Pricing</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Cost in RUPEES</label>
+                                        <input type="text" placeholder="$00.0" value="{{product.price}}" name="price" class="form-control" pattern="[0-9]+(\.[0-9]+)?" max="999999.99" required>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Stock</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Quantity</label>
+                                        <input type="text" placeholder="" name="stock" value="{{product.stock}}" class="form-control"  pattern="[0-9]+" required>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Category</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        {% for category in categories %}
+                                        <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                            <input class="form-check-input" value="{{ category.id }}" name="category" type="radio" required>
+                                            <span class="form-check-label">{{category.name}}</span>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                     
+
+                                    
+
+
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>4.Offer</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Select offer for this Product.</label>
+                                        <select class="form-select" name="offer_id" >
+                                            <option>Select an offer...</option> <!-- Add this empty option -->
+                                            {% for offer in offers %}
+                                            <option value="{{ offer.id }}"> {{offer.name}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                   
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+
+
+
+
+                            <div>
+                                <button class="btn btn-md rounded font-sm hover-up" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section> <!-- content-main end// -->
+{% endblock %}

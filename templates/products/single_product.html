@@ -1,0 +1,271 @@
+{% extends 'products/base.html' %}
+
+{% load static %}
+{% load social_share %}
+
+{% block content %}
+<style>
+
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  tex-decoration: none;
+  cursor: pointer;
+}
+
+.social-icons a {
+  margin-right: 10px;
+  font-size: 24px;
+}
+t
+
+
+</style>
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">"Timeless Elegance, Crafted for You."</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+    <!-- Start Product Details Section -->
+    <div class="product-details-section">
+        {% include 'includes/alerts.html' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="product-details-gallery-area" data-aos="fade-up" data-aos-delay="0">
+                        <!-- Start Large Image -->
+                        <div class="product-large-image product-large-image-horaizontal swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for image in product_obj.images.all %}
+                      {% comment %} <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
+                       
+                                <img src="{{ image.image.url }}" alt="" data-zoom-image="{{ image.image.url }}">
+                            </div> {% endcomment %}
+
+                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
+                       
+                                <img src="{{ image.image.url }}" >
+                            </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        <!-- End Large Image -->
+                        <!-- Start Thumbnail Image -->
+                        <div
+                            class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
+                            <div class="swiper-wrapper">
+                                {% for image in product_obj.images.all %}
+                            <div class="product-image-thumb-single swiper-slide">
+                                <img class="img-fluid" src="{{ image.image.url }}" alt="">
+                            </div>
+                            {% endfor %}
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="gallery-thumb-arrow swiper-button-next"></div>
+                            <div class="gallery-thumb-arrow swiper-button-prev"></div>
+                        </div>
+                        <!-- End Thumbnail Image -->
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-6">
+                    <div class="product-details-content-area product-details--golden" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <!-- Start  Product Details Text Area-->
+                        <div class="product-details-text">
+                            <h4 class="title">{{ product_obj.name }}</h4>
+                            {% if product_obj.offers.exists or product_obj.category.offers.exists %}
+                            {% with discounted_price=product_obj.discounted_price %}
+                            {% comment %} <div class="price"><del>&#8377; {{ product_obj.price }}</del></div> {% endcomment %}
+                            <div class="price">&#8377; {{ discounted_price|floatformat:2 }}
+                                <span><small><del>&#8377; {{ product_obj.price }}</del></small></span>
+                            </div>
+                            
+                            {% endwith %}
+                            {% else %}
+                            <div class="price">&#8377;{{ product_obj.price }}</div>
+                            {% endif %}
+
+                            <p>{{ product_obj.description }}</p>
+                        </div> <!-- End  Product Details Text Area-->
+                        <!-- Start Product Variable Area -->
+                        <div class="product-details-variable">
+                            {% comment %} <h4 class="title">Available Options</h4> {% endcomment %}
+                            <!-- Product Variable Single Item -->
+
+                    
+
+                            <div class="variable-single-item">
+
+                                    {% if product_obj.stock > 0  %}
+                                {% comment %} <div class="product-stock"> <span class="product-stock-in">In stock</span></div> {% endcomment %}
+                                <div class="tag">
+                                    <span class="discount-percentage" style="background:#82c74f; color: white; border-radius:px;">
+                                        In stock</span>
+                                </div>
+                                      {% else %}
+                                      <div class="tag">
+                                        <span class="discount-percentage" style="background:red; color: white; border-radius:px;">
+                                            Out of stock</span>
+                                    </div>
+                                  {% endif %}
+                               
+                            </div>
+                            <!-- Product Variable Single Item -->
+                            <div class="d-flex align-items-center ">
+                                <div class="variable-single-item ">
+                                    {% comment %} <span>Quantity</span>
+                                    <div class="product-variable-quantity">
+                                        <input min="1" max="100" value="1" type="number">
+                                    </div> {% endcomment %}
+                                </div>
+
+                                <div class="product-add-to-cart-btn">
+                                    <a href="{% url 'add_to_cart' product_obj.id %}" class="btn btn-block btn-lg btn-black-default-hover"
+                                         >+ Add To Cart</a>
+                                </div>
+                            </div>
+                            <!-- Start  Product Details Meta Area-->
+                            <div class="product-details-meta mb-20">
+                                <a href="{% url 'add_to_wishlist' product_obj.id %}" class="icon-space-right"><i class="icon-heart"></i>Add to
+                                    wishlist</a>
+                            </div> <!-- End  Product Details Meta Area-->
+                        </div> <!-- End Product Variable Area -->
+
+                        <!-- Start  Product Details Catagories Area-->
+                        <div class="product-details-catagory mb-2">
+                            <span class="title">CATEGORIES:</span>
+                            <ul>
+                                <li><a href="#">{{product_obj.category}}</a></li>
+                                
+                            </ul>
+                            
+
+                            
+                                
+                        </div> <!-- End  Product Details Catagories Area-->
+                        <!-- Start  Product Details Social Area-->
+                        <a>{% post_to_facebook object_or_url "Share to facebook." %}<i class="fab fa-facebook-f"></i></a>
+                        <a>{% post_to_whatsapp object_or_url "share to whatsapp" %}<i class="fab fa-whatsapp"></i></a>
+                        
+
+
+
+  
+                    </div>
+                     
+                    
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Product Details Section -->
+
+    <!-- Start Product Content Tab Section -->
+    <div class="product-details-content-tab-section section-top-gap-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-details-content-tab-wrapper" data-aos="fade-up" data-aos-delay="0">
+
+                        <!-- Start Product Details Tab Button -->
+                        <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
+                            <li><a class="nav-link active" data-bs-toggle="tab" href="#description">
+                                    Description
+                                </a></li>
+                            <li><a class="nav-link" data-bs-toggle="tab" href="#specification">
+                                    Specification
+                                </a></li>
+                            
+                        </ul> <!-- End Product Details Tab Button -->
+
+                        <!-- Start Product Details Tab Content -->
+                        <div class="product-details-content-tab">
+                            <div class="tab-content">
+                                <!-- Start Product Details Tab Content Singel -->
+                                <div class="tab-pane active show" id="description">
+                                    <div class="single-tab-content-item">
+                                        <p>{{product_obj.description}}</p>
+                                    </div>
+                                </div> <!-- End Product Details Tab Content Singel -->
+                                <!-- Start Product Details Tab Content Singel -->
+                                <div class="tab-pane" id="specification">
+                                    <div class="single-tab-content-item">
+                                        <p>{{product_obj.specifications}}</p>
+                                    </div>
+                                </div> <!-- End Product Details Tab Content Singel -->
+                                <!-- Start Product Details Tab Content Singel -->
+                                    </div>
+                                </div> <!-- End Product Details Tab Content Singel -->
+                            </div>
+                        </div> <!-- End Product Details Tab Content -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Product Content Tab Section -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'assets/js/xzoom.js'%}"></script>
+<script>
+  $(".zoom-image-hover").zoom();
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the ElevateZoom plugin on the large image container
+            $('.product-image-large-image').elevateZoom({
+                zoomType: "inner",
+                cursor: "crosshair",
+                gallery: 'product-large-image-horaizontal',
+                galleryActiveClass: 'active',
+                imageCrossfade: true,
+                loadingIcon: 'your-loading-icon-path/loading.gif', // Replace with the path to your loading icon image
+            });
+        });
+
+
+
+
+        </script>
+{% endblock %}

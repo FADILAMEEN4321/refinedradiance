@@ -1,0 +1,277 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+
+<style>
+    /* Define styles for the content container */
+    .content1 {
+        display: flex;
+        {% comment %} align-items: center; {% endcomment %}
+        
+        padding: 10px;
+        
+        {% comment %} background: wheat; {% endcomment %}
+    }
+
+    /* Styles for the content-left div */
+    .content-left {
+        flex: 1;
+    }
+
+    /* Styles for the title link */
+    .title a {
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Styles for the content-right div */
+    .content-right {
+        flex: 1;
+        text-align: right;
+    }
+
+    /* Styles for the price and discounted price */
+    .price {
+        font-size: 14px;
+        color: #f00;
+        
+    }
+
+    /* Styles for the discounted price */
+    .price p {
+        font-size: 18px;
+        color: #000; /* Red color for the discounted price */
+    }
+
+    /* Styles for the discount percentage */
+    .discount-percentage {
+        font-size: 14px;
+        color: #00f; /* Blue color for the discount percentage */
+    }
+</style>
+
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">"Timeless Elegance for Every Wrist."</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+    <!-- ...:::: Start Shop Section:::... -->
+    <div class="shop-section">
+        {% include 'includes/alerts.html' %}
+        <div class="container">
+            <div class="row flex-column-reverse flex-lg-row">
+                <div class="col-lg-3">
+                    <!-- Start Sidebar Area -->
+                    <div class="siderbar-section" data-aos="fade-up" data-aos-delay="0">
+
+                        <!-- Start Single Sidebar Widget -->
+                        <div class="sidebar-single-widget">
+                            <h6 class="sidebar-title">CATEGORIES</h6>
+                            <div class="sidebar-content">
+                                <ul class="sidebar-menu">
+                                        {% for catagory in categories %}
+                                    <ul class="sidebar-menu-collapse">
+                                            
+                                    <li><a href="#">{{catagory.name}}</a></li>
+                                    
+                                </ul>
+                                {% endfor %}
+                            </div>
+                        </div> <!-- End Single Sidebar Widget -->
+
+                        <!-- Start Single Sidebar Widget -->
+                        <div class="sidebar-single-widget">
+                            <h6 class="sidebar-title">BRAND</h6>
+                            <div class="sidebar-content">
+                                <ul class="sidebar-menu">
+                                        {% for brand in brands %}
+                                    <ul class="sidebar-menu-collapse">
+                                            
+                                    <li><a href="#">{{brand.name}}</a></li>
+                                    
+                                </ul>
+                                {% endfor %}
+                            </div>
+                        </div> <!-- End Single Sidebar Widget -->
+
+                    </div> <!-- End Sidebar Area -->
+                </div>
+                <div class="col-lg-9">
+                    <!-- Start Shop Product Sorting Section -->
+                    <div class="shop-sort-section">
+                        <div class="container">
+                            <div class="row">
+                                <!-- Start Sort Wrapper Box -->
+                                <div class="sort-box d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column"
+                                    data-aos="fade-up" data-aos-delay="0">
+                                    <!-- Start Sort tab Button -->
+                                    <div class="sort-tablist d-flex align-items-center">
+                                        <ul class="tablist nav sort-tab-btn">
+                                            <li><a class="nav-link active" data-bs-toggle="tab"
+                                                    href="#layout-3-grid"><img src="assets/images/icons/bkg_grid.png"
+                                                        alt=""></a></li>
+                                            <li><a class="nav-link" data-bs-toggle="tab" href="#layout-list"><img
+                                                        src="assets/images/icons/bkg_list.png" alt=""></a></li>
+                                        </ul>
+
+                                        <!-- Start Page Amount -->
+                                        <div class="page-amount ml-2">
+                                            <span>Showing {{products_count}} results</span>
+                                           
+                                        </div> <!-- End Page Amount -->
+                                    </div> <!-- End Sort tab Button -->
+
+                                    <!-- Start Sort Select Option -->
+                                    <div class="sort-select-list d-flex align-items-center">
+                                        <label class="mr-2">Sort By:</label>
+                                        <form action="#">
+                                            <fieldset>
+                                                <select name="speed" id="speed">
+                                                    {% comment %} <option>Sort by average rating</option> {% endcomment %}
+                                                    <option selected="selected">Sort by newness</option>
+                                                    <option>Sort by price: low to high</option>
+                                                    <option>Sort by price: high to low</option>
+                                                    <option>Product Name: Z</option>
+                                                </select>
+                                            </fieldset>
+                                        </form>
+                                    </div> <!-- End Sort Select Option -->
+
+
+
+                                </div> <!-- Start Sort Wrapper Box -->
+                            </div>
+                        </div>
+                    </div> <!-- End Section Content -->
+
+                   <!-- Start Tab Wrapper -->
+<div class="sort-product-tab-wrapper">   
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-content tab-animate-zoom">
+                    <!-- Start Grid View Product -->
+                    <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
+                        <div class="row">
+                            {% for product in products %}
+                            <div class="col-xl-4 col-sm-6 col-12">
+                                <!-- Start Product Default Single Item -->
+                                <div class="product-default-single-item product-color--golden" data-aos="fade-up"
+                                    data-aos-delay="0">
+                                    <div class="image-box">
+                                        {% for image in product.images.all|slice:":1" %}
+                                        <a href="{% url 'product_details' product.id %}" class="image-link">
+                                            <img src="{{image.image.url}}" alt="">
+                                            <img src="{{image.image.url}}" alt="">
+                                        </a>
+                                        {% endfor %}
+                                        {% if product.offers.exists or product.category.offers.exists %}
+                                            <div class="tag">
+                                                <span class="discount-percentage" style="background:#82c74f; border-radius:3px;">
+                                                    {{ product.get_max_discount_percentage }}% off <!-- Display the discount percentage -->
+                                                    </span>
+                                            </div>
+                                            {% endif %}
+                                        <div class="action-link">
+                                            <div class="action-link-left">
+                                                {% comment %} <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add to
+                                                    Cart</a> {% endcomment %}
+                                                    {% comment %} <a href="{% url 'add_to_cart' product.id %}" >Add to
+                                                        Cart</a> {% endcomment %}
+                                                        <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart" data-product-id="{{ product.id }}"> Add to Cart</a>
+
+
+                                            </div>
+                                            <div class="action-link-right">
+                                                
+                                                <a href="{% url 'add_to_wishlist' product.id %}"><i class="icon-heart"></i></a>
+                                               
+
+                                                {% comment %} <a href="compare.html"><i class="icon-shuffle"></i></a> {% endcomment %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content1">
+                                        <div class="content-left">
+                                            <h6 class="title"><a
+                                                    href="{% url 'product_details' product.id %}">{{ product.name }}</a></h6>
+                                           
+                                        </div>
+                                        <div class="content-right">
+                                            {% comment %} <span class="price">{{ product.price }}</span> {% endcomment %}
+                                          
+                        
+
+
+ 
+                                             {% if product.offers.exists or product.category.offers.exists %}
+                                                {% with discounted_price=product.discounted_price %}
+                                                    <span class="price">
+                                                        
+                                                        <p style="margin-bottom:0px;">&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
+                                                        <del>&#8377; {{ product.price }}</del> <!-- Display the regular price -->
+                                                    </span>
+                                                {% endwith %}
+                                            {% else %}
+                                                <span class="price">&#8377; {{ product.price }}</span> <!-- If no discount, display the regular price -->
+                                            {% endif %}
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Product Default Single Item -->
+                            </div>
+                            {% endfor %}
+
+
+
+
+                           
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+                    {% comment %} <!-- Start Pagination -->
+                    <div class="page-pagination text-center" data-aos="fade-up" data-aos-delay="0">
+                        <ul>
+                            <li><a class="active" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#"><i class="ion-ios-skipforward"></i></a></li>
+                        </ul>
+                    </div> <!-- End Pagination --> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Shop Section:::... -->
+
+
+
+
+
+
+{% endblock %}
+

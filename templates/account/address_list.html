@@ -1,0 +1,136 @@
+
+
+<a href="{% url 'add_address' %}" class="btn btn-md btn-black-default-hover">Add Address</a></div>
+
+              <div id="address-list" class="table-group-divider" hx-confirm="Are you sure?" hx-target="#address-list" hx-swap="outerHTML swap:1s">
+                {% for address in addresses %}
+                <div class="grey-box">
+                  <div class="grey-box-content">
+                    <h5 class="card-title">{{ address.full_name|upper }}</h5>
+                    <p class="card-text">
+                      <strong>Address:</strong>{{ address.house_name }}, {{ address.landmark }}, {{ address.city }}, {{ address.state }}<br>
+                      <strong>District:</strong> {{ address.district }}<br>
+                      <strong>State:</strong> {{ address.state }}<br>
+                      <strong>Phone number:</strong> {{ address.contact_number }} 
+                    </p>
+                    <div class="d-flex justify-content-end">
+                      <button class="btn btn-md btn-golden" data-bs-toggle="modal" data-bs-target="#addressedit{{ forloop.counter }}" data-address-id="{{ address.id }}">Edit</button>
+                      <button class="btn btn-md btn-golden" hx-delete="/remove_address/{{ address.id }}" type="submit" hx-target="#address-list">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              
+              <!-- Modal -->
+              {% for address in addresses %}
+              <div class="modal fade" id="addressedit{{ forloop.counter }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Address</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="customer-login">
+                        <div class="container">
+                          <!-- Register area start -->
+                          <div class="container">
+
+                            <div id="editaddress-info">
+                        
+                            </div>
+
+                            <form id="editaddress_form" hx-post="/edit_address/" hx-target="#editaddress-info"  hx-trigger="submit">
+                              {% csrf_token %}
+                              <input type="hidden" name="address_id" value="{{ address.id }}">
+                              <!-- Rest of the form fields -->
+                              
+
+                              <div class="default-form-box">
+                                <label for="id_fullname">Full Name</label>
+                                <input type="text" id="id_fullname" value="{{address.full_name}}" name="full_name" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_contact_number">Contact Number</label>
+                                <input type="text" id="id_contact_number" value="{{address.contact_number}}" name="contact_number" required pattern="[0-9]{10}">
+                                <small class="text-muted">Please enter a 10-digit phone number.</small>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_house_name">House Name</label>
+                                <input type="text" id="id_house_name" value="{{address.house_name}}" name="house_name" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_landmark">Landmark</label>
+                                <input type="text" id="id_landmark" value="{{address.landmark}}" name="landmark" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_city">City</label>
+                                <input type="text" id="id_city" value="{{address.city}}" name="city" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_district">District</label>
+                                <input type="text" id="id_district" name="district" value="{{address.district}}" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_state">State</label>
+                                <input type="text" id="id_state" name="state" value="{{address.state}}" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_country">Country</label>
+                                <input type="text" id="id_country" name="country" value="{{address.country}}" required>
+                            </div>
+                            
+                            <div class="default-form-box">
+                                <label for="id_pincode">Pincode</label>
+                                <input type="text" id="id_pincode" name="pincode" value="{{address.pincode}}" pattern="[0-9]{6}" required>
+                                <small>Enter a 6-digit pincode.</small>
+                            </div>
+            
+
+
+
+
+                              
+                              <!-- ... -->
+                              <button class="btn btn-md btn-black-default-hover" hx-post="/edit_address/" hx-target="#editaddress-info" hx-trigger="submit"  type="submit">Save</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+<script>
+<!-- to disappear edit addres alert messages -->
+document.body.addEventListener('htmx:afterRequest', (event) => {
+    const messageContainer = document.getElementById('editaddress-info');
+    const alertMessage = messageContainer.querySelector('.alert');
+
+    // Check if an alert message exists
+    if (alertMessage) {
+      // Wait for 3 seconds (3000 milliseconds) and then remove the alert message
+      setTimeout(() => {
+        alertMessage.remove();
+      }, 3000);
+    }
+  });   
+
+
+
+
+
+  
+</script>
+              

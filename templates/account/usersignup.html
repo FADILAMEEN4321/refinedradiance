@@ -1,0 +1,122 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+  
+ 
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcrumb-title" style="color: white;">SignUp</h1>
+                    <h4 class="" style="color: white;">Join the Timepiece Journey.</h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<div class="customer-login">
+    <div class="container">
+        <div class="row">
+ <!--register area start-->
+           <div class="col-lg-6 col-md-6">
+              <div class="account_form register" data-aos="fade-up" data-aos-delay="200">
+        
+        {% include 'includes/alerts.html' %}
+
+            <h3>Register</h3>
+            <form method="POST" style="color: white;
+            background: #1e1b1be3;
+            border: 1px solid #ededed;
+            padding: 23px 20px 29px;
+            border-radius: 5px;">
+                {% csrf_token %}
+                
+                <div class="default-form-box">
+                    <label>Username <span>*</span></label>
+                    {{form.username}}
+                    {% if form.username.errors %}
+            <p class="error">{{ form.username.errors }}</p>
+                 {% endif %}
+                </div>
+
+
+                <div class="default-form-box">
+                    <label>First Name <span>*</span></label>
+                    {{form.first_name}}
+                    {% if form.first_name.errors %}
+            <p class="error">{{ form.first_name.errors }}</p>
+                 {% endif %}
+                </div>
+                
+                <div class="default-form-box">
+                    <label>Last Name <span>*</span></label>
+                    {{form.last_name}}
+                    {% if form.last_name.errors %}
+            <p class="error">{{ form.last_name.errors }}</p>
+                 {% endif %}
+                </div>
+                
+                <div class="default-form-box">
+                    <label>Email address <span>*</span></label>
+                    {{form.email}}
+                    {% if form.email.errors %}
+            <p class="error">{{ form.email.errors }}</p>
+                  {% endif %}
+                </div>
+                
+                <div class="default-form-box">
+                    <label>Phone Number <span>*</span></label>
+        <input type="text" name="phone_number" pattern="\d{10}" placeholder="Please enter a 10-digit phone number" required>
+                    {% if form.phone_number.errors %}
+            <p class="error">{{ form.phone_number.errors }}</p>
+                 {% endif %}
+                </div> 
+                
+                <div class="default-form-box">
+                    <label>Password <span>*</span></label>
+                    {{form.password1}}
+                    {% if form.password1.errors %}
+                    <div class="error">{{ form.password1.errors }}</div>
+                {% endif %}
+                </div>
+               
+                <div class="default-form-box">
+                    <label>Confirm Password <span>*</span></label>
+                    {{form.password2}}
+                    {% if form.password2.errors %}
+                    <div class="error">{{ form.password2.errors }}</div>
+                {% endif %}
+                </div>
+                
+                <div class="login_submit">
+                    <button class="btn btn-md btn-black-default-hover" type="submit">Register</button>
+                    
+                </div>
+                <br>
+                <a href="{% url 'user_login' %}" style="color: wheat;">Already have an account? Login.</a>
+            </form>
+            
+        </div>
+</div> 
+
+
+<!--login area end--> 
+
+<!--register area start-->
+<div class="col-lg-6 col-md-6">
+    <div class="account_form register" data-aos="fade-up" data-aos-delay="200">
+    <img src="media/herocover.jpg" alt="Your Image Description" style=" max-width: 100%; max-height: 100%; display: block; margin: auto; border-radius:5px;">
+                        
+                      
+</div>
+<!--register area end-->
+</div>
+</div>
+</div> <!-- ...:::: End Customer Login Section :::... -->
+
+{% endblock %}

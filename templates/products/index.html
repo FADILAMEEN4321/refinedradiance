@@ -1,0 +1,549 @@
+{% extends 'products/base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Define styles for the content container */
+    .content1 {
+        display: flex;
+        {% comment %} align-items: center; {% endcomment %}
+        
+        padding: 10px;
+        
+        {% comment %} background: wheat; {% endcomment %}
+    }
+
+    /* Styles for the content-left div */
+    .content-left {
+        flex: 1;
+    }
+
+    /* Styles for the title link */
+    .title a {
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Styles for the content-right div */
+    .content-right {
+        flex: 1;
+        text-align: right;
+    }
+
+    /* Styles for the price and discounted price */
+    .price {
+        font-size: 14px;
+        color: #f00;
+        
+    }
+
+    /* Styles for the discounted price */
+    .price p {
+        font-size: 18px;
+        color: #000; /* Red color for the discounted price */
+    }
+
+    /* Styles for the discount percentage */
+    .discount-percentage {
+        font-size: 14px;
+        color: #00f; /* Blue color for the discount percentage */
+    }
+</style>
+
+
+{% include 'includes/alerts.html' %}
+<!-- Start Hero Slider Section-->
+<div class="hero-slider-section">
+    <!-- Slider main container -->
+    <div class="hero-slider-active swiper-container">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            {% for banner in hero_banners %}
+            <!-- Start Hero Single Slider Item -->
+            <div class="hero-single-slider-item swiper-slide">
+                <!-- Hero Slider Image -->
+                <div class="hero-slider-bg">
+                    <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+                </div>
+                <!-- Hero Slider Content -->
+                <div class="hero-slider-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="hero-slider-content">
+                                    <h3 class="subtitle" style="color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">Refined Radiance</h3>
+                                    <h1 class="title" style="color: white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">Timeless Watches that </br>Illuminate Your Style.</h1>
+                                    <a href="{% url 'shop' %}" class="btn btn-lg btn-pink">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Hero Single Slider Item -->
+            {% endfor %}
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination active-color-pink"></div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev d-none d-lg-block"></div>
+        <div class="swiper-button-next d-none d-lg-block"></div>
+    </div>
+</div>
+<!-- End Hero Slider Section-->
+
+    <!-- Start Service Section -->
+    <div class="service-promo-section section-top-gap-100" >
+        <div class="service-wrapper" >
+            <div class="container">
+                <div class="row">
+                    <!-- Start Service Promo Single Item -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="service-promo-single-item" data-aos="fade-up" data-aos-delay="0">
+                            <div class="image">
+                                <img src="static/assets/images/icons/service-promo-5.png" alt="">
+                            </div>
+                            <div class="content">
+                                <h6 class="title">FREE SHIPPING</h6>
+                                <p>Get 10% cash back, free shipping, free returns, and more at 1000+ top retailers!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Service Promo Single Item -->
+                    <!-- Start Service Promo Single Item -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="service-promo-single-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="image">
+                                <img src="static/assets/images/icons/service-promo-6.png" alt="">
+                            </div>
+                            <div class="content">
+                                <h6 class="title">30 DAYS MONEY BACK</h6>
+                                <p>100% satisfaction guaranteed, or get your money back within 30 days!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Service Promo Single Item -->
+                    <!-- Start Service Promo Single Item -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="service-promo-single-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="image">
+                                <img src="static/assets/images/icons/service-promo-7.png" alt="">
+                            </div>
+                            <div class="content">
+                                <h6 class="title">SAFE PAYMENT</h6>
+                                <p>Pay with the world’s most popular and secure payment methods.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Service Promo Single Item -->
+                    <!-- Start Service Promo Single Item -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="service-promo-single-item" data-aos="fade-up" data-aos-delay="600">
+                            <div class="image">
+                                <img src="static/assets/images/icons/service-promo-8.png" alt="">
+                            </div>
+                            <div class="content">
+                                <h6 class="title">LOYALTY CUSTOMER</h6>
+                                <p>Card for the other 30% of their purchases at a rate of 1% cash back.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Service Promo Single Item -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Service Section -->
+
+    <!-- Start Banner Section -->
+    <div class="banner-section section-top-gap-100">
+        <div class="banner-wrapper clearfix">
+            {% for banner in potrait_banners %}
+            <!-- Start Banner Single Item -->
+            <a href="{% url 'shop' %}">
+                <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="image">
+                        <img class="img-fluid" src="{{ banner.image.url }}" alt="">
+                    </div>
+                </div>
+            </a>
+            <!-- End Banner Single Item -->
+            {% endfor %}
+            
+        </div>
+    </div>
+    <!-- End Banner Section -->
+
+    <!-- Start Product Default Slider Section -->
+    <div class="product-default-slider-section section-top-gap-100 section-fluid">
+        <!-- Start Section Content Text Area -->
+        <div class="section-title-wrapper" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-content-gap">
+                            <div class="secton-content">
+                                <h3 class="section-title">the New arrivals</h3>
+                                <p>Discover the latest and greatest: Unveiling our irresistible new arrivals!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Section Content Text Area -->
+        <div class="product-wrapper" data-aos="fade-up" data-aos-delay="200">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-slider-default-2rows default-slider-nav-arrow">
+                            <!-- Slider main container -->
+                            <div class="swiper-container product-default-slider-4grid-2row">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Start Product Default Single Item -->
+                                    {% for new_arrival in new_arrivals %}
+                                    <div class="product-default-single-item product-color--pink swiper-slide">
+                                        <div class="image-box">
+                                            {% for image in new_arrival.images.all|slice:":1" %}
+                                            <a href="{% url 'product_details' new_arrival.id %}" class="image-link">
+                                                <img src="{{image.image.url}}" alt="">
+                                                <img src="{{image.image.url}}" alt="">
+                                            </a>
+                                            {% endfor %}
+                                            {% if new_arrival.offers.exists or new_arrival.category.offers.exists %}
+                                            <div class="tag">
+                                                <span class="discount-percentage" style="background:#82c74f; border-radius:3px;">
+                                                    {{ new_arrival.get_max_discount_percentage }}% off <!-- Display the discount percentage -->
+                                                    </span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    {% comment %} <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddcart">Add to Cart</a> {% endcomment %}
+                                                        <a href="{% url 'add_to_cart' product_id=new_arrival.id %} ">Add to Cart</a>
+                                                </div>
+                                                <div class="action-link-right">
+                                                     
+                                                    <a href="{% url 'add_to_wishlist' product_id=new_arrival.id %}"><i class="icon-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content1">
+                                            <div class="content-left">
+                                                <h6 class="title"><a href="{% url 'product_details' new_arrival.id %}">{{new_arrival.name}}</a></h6>
+                                                
+                                            </div>
+                                            <div class="content-right">
+                                       
+                                                {% if new_arrival.offers.exists or new_arrival.category.offers.exists %}
+                                                {% with discounted_price=new_arrival.discounted_price %}
+                                                    <span class="price">
+                                                        
+                                                        <p style="margin-bottom:0px;">&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
+                                                        <del>&#8377; {{ new_arrival.price }}</del> <!-- Display the regular price -->
+                                                        
+                                                       
+                                                  
+                                                    </span>
+                                                {% endwith %}
+                                            {% else %}
+                                                <span class="price">&#8377; {{ new_arrival.price }}</span> <!-- If no discount, display the regular price -->
+                                            {% endif %}
+
+
+                                            </div>
+   
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- End Product Default Single Item -->
+                                </div>
+                            </div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Product Default Slider Section -->
+
+    <!-- Start Banner Section -->
+    <div class="banner-section section-top-gap-100">
+        <div class="banner-wrapper clearfix">
+
+            {% for banner in bottom_banners %}
+            <!-- Start Banner Single Item -->
+            <a href="{% url 'shop' %}">
+                <div class="banner-single-item banner-style-8 banner-animation banner-color--green float-left"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="image">
+                        <img class="img-fluid" src="{{ banner.image.url }}" alt="">
+                    </div>
+                </div>
+            </a>
+            <!-- End Banner Single Item -->
+            {% endfor %}
+        </div>
+    </div>
+    <!-- End Banner Section -->
+
+    <!-- Start Product Default Slider Section -->
+    <div class="product-default-slider-section section-fluid section-inner-bg" style="padding-bottom:0px;">
+        <!-- Start Section Content Text Area -->
+        <div class="section-title-wrapper" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-content-gap">
+                            <div class="secton-content">
+                                <h3 class="section-title">BEST SELLERS</h3>
+                                <p>Timeless elegance at your fingertips: Discover our bestsellers in watches!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Section Content Text Area -->
+        <div class="product-wrapper" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-slider-default-1row default-slider-nav-arrow">
+                            <!-- Slider main container -->
+                            <div class="swiper-container product-default-slider-4grid-1row">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- End Product Default Single Item -->
+           
+                                    {% for bestseller in bestsellers %}
+                                    <div class="product-default-single-item product-color--pink swiper-slide">
+                                        <div class="image-box">
+                                            {% for image in bestseller.images.all|slice:":1" %}
+                                            <a href="{% url 'product_details' bestseller.id %}" class="image-link">
+                                                <img src="{{image.image.url}}" alt="">
+                                                <img src="{{image.image.url}}" alt="">
+                                            </a>
+                                            {% endfor %}
+                                            {% if bestseller.offers.exists or bestseller.category.offers.exists %}
+                                            <div class="tag">
+                                                <span class="discount-percentage" style="background:#82c74f; border-radius:3px;">
+                                                    {{ bestseller.get_max_discount_percentage }}% off <!-- Display the discount percentage -->
+                                                    </span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    {% comment %} <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddcart">Add to Cart</a> {% endcomment %}
+                                                        <a href="{% url 'add_to_cart' product_id=bestseller.id %} ">Add to Cart</a>
+                                                </div>
+                                                <div class="action-link-right">
+                                                     
+                                                    <a href="{% url 'add_to_wishlist' product_id=bestseller.id %}"><i class="icon-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content1">
+                                            <div class="content-left">
+                                                <h6 class="title"><a href="{% url 'product_details' bestseller.id %}">{{bestseller.name}}</a></h6>
+                                                
+                                            </div>
+                                            <div class="content-right">
+                                       
+                                                {% if bestseller.offers.exists or bestseller.category.offers.exists %}
+                                                {% with discounted_price=bestseller.discounted_price %}
+                                                    <span class="price">
+                                                        
+                                                        <p style="margin-bottom:0px;">&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
+                                                        <del>&#8377; {{ bestseller.price }}</del> <!-- Display the regular price -->
+                                                        
+                                                       
+                                                  
+                                                    </span>
+                                                {% endwith %}
+                                            {% else %}
+                                                <span class="price">&#8377; {{ bestseller.price }}</span> <!-- If no discount, display the regular price -->
+                                            {% endif %}
+
+
+                                            </div>
+   
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Product Default Slider Section -->
+
+
+
+{% if sorted_recently_viewed_products %}
+   <!-- Start Product Default Slider Section -->
+   <div class="product-default-slider-section section-fluid section-inner-bg" style="padding-bottom:40px;">
+    <!-- Start Section Content Text Area -->
+    <div class="section-title-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-content-gap">
+                        <div class="secton-content">
+                            <h3 class="section-title">Recently viewed products</h3>
+                            <p>Timeless elegance at your fingertips: Discover our bestsellers in watches!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Section Content Text Area -->
+    <div class="product-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-slider-default-1row default-slider-nav-arrow">
+                        <!-- Slider main container -->
+                        <div class="swiper-container product-default-slider-4grid-1row">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- End Product Default Single Item -->
+                  
+
+
+                                {% for product in sorted_recently_viewed_products %}
+                                    <div class="product-default-single-item product-color--pink swiper-slide">
+                                        <div class="image-box">
+                                            {% for image in product.images.all|slice:":1" %}
+                                            <a href="{% url 'product_details' product.id %}" class="image-link">
+                                                <img src="{{image.image.url}}" alt="">
+                                                <img src="{{image.image.url}}" alt="">
+                                            </a>
+                                            {% endfor %}
+                                            {% if product.offers.exists or product.category.offers.exists %}
+                                            <div class="tag" >
+                                                <span class="discount-percentage" style="background:#82c74f; border-radius:3px;">
+                                                    {{ product.get_max_discount_percentage }}% off <!-- Display the discount percentage -->
+                                                    </span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    {% comment %} <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddcart">Add to Cart</a> {% endcomment %}
+                                                        <a href="{% url 'add_to_cart' product_id=product.id %} ">Add to Cart</a>
+                                                </div>
+                                                <div class="action-link-right">
+                                                     
+                                                    <a href="{% url 'add_to_wishlist' product_id=product.id %}"><i class="icon-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content1">
+                                            <div class="content-left">
+                                                <h6 class="title"><a href="{% url 'product_details' product.id %}">{{product.name}}</a></h6>
+                                                
+                                            </div>
+                                            <div class="content-right">
+                                       
+                                                {% if product.offers.exists or product.category.offers.exists %}
+                                                {% with discounted_price=product.discounted_price %}
+                                                    <span class="price">
+                                                        
+                                                        <p style="margin-bottom:0px;">&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
+                                                        <del>&#8377; {{ product.price }}</del> <!-- Display the regular price -->
+                                                        
+                                                       
+                                                  
+                                                    </span>
+                                                {% endwith %}
+                                            {% else %}
+                                                <span class="price">&#8377; {{ product.price }}</span> <!-- If no discount, display the regular price -->
+                                            {% endif %}
+
+
+                                            </div>
+   
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                            </div>
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Product Default Slider Section -->
+{% endif %}
+
+    
+
+    
+
+<!-- Start Company Logo Section -->
+<div class="company-logo-section section-top-gap-100 section-fluid">
+    <div class="company-logo-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="company-logo-slider default-slider-nav-arrow">
+                        <!-- Slider main container -->
+                        <div class="swiper-container company-logo-slider">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                {% for brand_logo in brand_logos %}
+                                <!-- Start Company Logo Single Item -->
+                                <div class="company-logo-single-item swiper-slide" >
+                                    <div class="image" style="margin-right: 50px;">
+                                        <img class="img-fluid"
+                                            src="static/assets/images/rolex.svg"
+                                            alt="{{ brand_logo.name }}">
+                                    </div>
+                                    
+                                </div>
+                                <!-- End Company Logo Single Item -->
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev d-none d-md-block"></div>
+                        <div class="swiper-button-next d-none d-md-block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Company Logo Section -->
+
+
+
+   {% endblock %}

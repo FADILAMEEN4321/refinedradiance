@@ -1,0 +1,243 @@
+{% extends 'products/base.html' %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block content %}
+<style>
+    
+.or-container {
+    align-items: center;
+    color: #ccc;
+    display: flex;
+    margin: 7px 0;
+}
+
+.line-separator {
+    background-color: #ccc;
+    flex-grow: 5;
+    height: 1px;
+}
+
+.or-label {
+    flex-grow: 1;
+    margin: 0 15px;
+    text-align: center;
+}
+
+.btn-google {
+    background-color: #fff;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: flex; /* Use flexbox */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    text-decoration: none;
+}
+
+/* Style change on hovering over the button */
+.btn-google:hover {
+    background-color: #4285F4;
+    color: #fff;
+    border-color: #4285F4;
+}
+ 
+.account_form.register {
+    position: relative;
+    padding-top: 100%; /* Set a 1:1 aspect ratio (optional) */
+    /* You can adjust the padding-top value as needed */
+    /* This is useful if you want to maintain a specific aspect ratio for the image */
+    /* For example, if you want a 16:9 aspect ratio, use padding-top: 56.25%; */
+}
+.account_form.register img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: black;  
+    border-radius:5px;
+}
+
+.account_form.register-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.account_form.register-text::after {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        right: -30px;
+        bottom: -30px;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+        border-radius: px;
+        z-index: -1;
+    } 
+
+{% comment %} 
+#login_background {
+    background-image: url("media/herocover.jpg");
+    background-size: cover;
+} 
+#login_background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius:8px;
+    opacity: 0.5; /* Adjust the opacity as desired */
+}  {% endcomment %}
+
+
+</style>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+    <div class="breadcrumb-wrapper mb-0" >
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcrumb-title" style="color: white;">Log In</h1>
+                    <h4 class="" style="color: white;">Unlock Time's Elegance.</h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Customer Login Section :::... -->
+ <div class="customer-login pt-5 pb-5" style="
+ 
+ ">
+    <div class="container pt-5 mt-5">
+        <div class="row">
+            <!--login area start-->
+            <div class="col-lg-6 col-md-6 p-0" >
+                <div class="account_form" data-aos="fade-up" data-aos-delay="0" >
+                    {% include 'includes/alerts.html' %}
+                    {% comment %} <h3>login</h3> {% endcomment %}
+                    <form action="#" method="POST" style="color: white;
+                    background: #1e1b1be3;
+                    {% comment %} border: 1px solid #ededed; {% endcomment %}
+                    padding: 23px 20px 29px;
+                    border-radius: 0px;">
+                        {% csrf_token %}
+                     <div class="default-form-box">
+                            <label>Username <span>*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="default-form-box">
+                            <label>Passwords <span>*</span></label>
+                            <input type="password" name="password" required>
+                            <a href="{% url 'forgot_password' %}" style="color: wheat;">forgot password?</a>
+                        </div>
+                        <div class="login_submit">
+                            <button class="btn btn-md btn-black-default-hover mb-4" type="submit">login</button>
+                            {% comment %} <label class="checkbox-default mb-4" for="offer">
+                                <input type="checkbox" id="offer">
+                                <span>Remember me</span>
+                            </label> {% endcomment %}
+                            <hr>
+                            <a href="{% url 'otp_login' %}" class="btn btn-block btn-md btn-black-default-hover">login with OTP</a>
+                            <div class="or-container"><div class="line-separator"></div> <div class="or-label">or</div><div class="line-separator"></div></div>
+{% comment %}                             
+                            <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-md btn-black-default-hover">
+                                <span><i class="fab fa-google"></i></span> Sign Up with Google
+                            </a> {% endcomment %}
+                            
+                            {% comment %} <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-black-default-hover" style="background-color: #fff; color: black; border: 1px solid black; padding: 10px 15px; border-radius: 4px; display: inline-flex; align-items: center; text-decoration: none;">
+                                <img src="https://img.icons8.com/color/16/000000/google-logo.png" style="margin-right: 5px;">Login with Google
+                            </a> {% endcomment %}
+                            
+                            <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-md btn-google">
+                                <img src="https://img.icons8.com/color/16/000000/google-logo.png" style="margin-right: 5px;" >Login with Google
+                            </a>
+                            
+                            <br>
+                            <hr>
+                            <a href="{% url 'user_signup' %}" style="color: wheat;">New to Refined Radiance? Create an account.</a>
+                            <a href="{% url 'request-new-link-from-email' %}" style="color: wheat;">Resend Email verification link.</a>
+                           
+                            
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 p-0" data-aos="fade-up" data-aos-delay="0" style="background-image : url('media/herocover.jpg'); background-size: cover;">
+                
+            </div>
+            <!--login area start-->
+            
+            
+                <!--register area start-->
+                {% comment %} <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200" id="login_background">
+                    <div class="account_form register" >
+                        <img src="media/herocover.jpg" alt="Your Image Description">
+                        
+                        <div class="account_form register-text">
+                            <h2 style="color: white;">Unveiling the World of Exquisite Watches</h2>
+                            <p>- Refined Radinace.</p>
+                        </div> 
+
+                    </div>
+                </div> {% endcomment %}
+                <!--register area end-->
+{% comment %} <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+                            <h1 style="color:white; font-size:40px;">Unveiling the World of Exquisite Watches </h1>
+                            <p>- Refined Radinace.</p>
+                        </div> {% endcomment %}
+
+
+            {% comment %} {% get_providers as socialaccount_providers %}
+
+            {% if socialaccount_providers %}
+    {% comment %} <p>{% blocktrans with site.name as site_name %}Please sign in with one
+    of your existing third party accounts.<br>Or, <a href="{{ signup_url }}">sign up</a>
+    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> {% endcomment %}
+
+    {% comment %} <div class="socialaccount_ballot"> {% endcomment %}
+
+      {% comment %} <div class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </div> {% endcomment %}
+
+      {% comment %} <a href="{% provider_login_url 'google' %}">Sign Up</a> {% endcomment %}
+     
+      
+{% comment %}     
+    </div>  
+
+    {% include "socialaccount/snippets/login_extra.html" %}
+
+    {% else %}
+    <p>{% blocktrans %}If you have not created an account yet, then please
+    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+    {% endif %}
+  </div>
+              {% endcomment %}
+
+
+
+              
+
+  </div>
+    </div>
+</div> <!-- ...:::: End Customer Login Section :::... --> 
+
+
+
+{% endblock %}

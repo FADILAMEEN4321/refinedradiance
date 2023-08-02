@@ -1,0 +1,96 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+<style>
+  .grey-box {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .grey-box-content {
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: darkslategrey;
+      color: wheat;
+  }
+  
+    .d-flex.justify-content-end button {
+      margin-right: 10px;
+    }
+    
+  
+  
+  </style> 
+
+  
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcrumb-title" style="color: white;">Address</h1>
+                    <h4 class="" style="color: white;"></h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<div class="customer-login">
+    <div class="container">
+ <!--register area start-->
+
+  {% include 'includes/alerts.html' %}
+   <h4 class="billing-address">Your address</h4>
+                            <p>You can manage your addresses here.</p>
+    
+    <div class="account_form register" data-aos="fade-up" data-aos-delay="200">
+        <div>
+        
+
+          {% comment %} <a href="{% url 'profile' %}" class="btn btn-md btn-black-default-hover">back</a></div> {% endcomment %}
+<a href="{% url 'add_address' %}" class="btn btn-md btn-black-default-hover" style="margin-bottom: 10px;">Add Address</a></div>
+
+
+              <div id="address-list" class="table-group-divider">
+                {% for address in addresses %}
+                <div class="grey-box">
+                  <div class="grey-box-content">
+                    <h5 class="card-title">{{ address.full_name|upper }}</h5>
+                    <p class="card-text">
+                      <strong>Address:</strong>{{ address.house_name }}, {{ address.landmark }}, {{ address.city }}, {{ address.state }}<br>
+                      <strong>District:</strong> {{ address.district }}<br>
+                      <strong>State:</strong> {{ address.state }}<br>
+                      <strong>Phone number:</strong> {{ address.contact_number }} 
+                    </p>
+                    <div class="d-flex justify-content-end">
+                      {% comment %} <button class="btn btn-md btn-golden" data-bs-toggle="modal" data-bs-target="#addressedit{{ forloop.counter }}" data-address-id="{{ address.id }}">Edit</button> {% endcomment %}
+                      <a href="{% url 'edit_address' address.id %}"><button class="btn btn-md btn-golden"type="submit">Edit</button></a>
+                      {% comment %} <button class="btn btn-md btn-golden" hx-delete="/remove_address/{{ address.id }}" type="submit" hx-target="#address-list">Remove</button> {% endcomment %}
+                      <a href="{% url 'delete_address' address.id %}"><button class="btn btn-md btn-golden"  type="submit">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+
+
+
+
+
+
+
+
+
+<!--register area end-->
+
+</div>
+</div> <!-- ...:::: End Customer Login Section :::... -->
+
+{% endblock %}

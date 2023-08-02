@@ -1,0 +1,106 @@
+
+
+
+<!-- invoice_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Invoice - Refined Radiance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles for the invoice */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #333;
+        }
+        
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        
+        .invoice-details p {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .total-price {
+            margin-top: 20px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Adjust line height for table rows */
+        table tbody tr {
+            line-height: 1.2;
+        }
+        
+        /* Adjust line height for paragraphs */
+        p {
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Invoice</h1>
+        <h2>Refined Radiance</h2>
+        <div class="invoice-details">
+            <h3>Order ID: {{ order.id }}</h3>
+            <h3>Payment Mode: {{ order.payment_mode }}</h3>
+            <h3>Tracking Number: {{ order.tracking_no }}</h3>
+            
+            <!-- Add any other relevant order details -->
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.orderitem_set.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total-price">Total Amount: {{ order.total_price|floatformat:2 }}</p>
+
+        <hr>
+
+        <h3>Thank you for shopping with Refined Radiance. We appreciate your business!</h3>
+        <h3>If you have any questions or need further assistance, please don't hesitate to contact our customer support.</h3>
+
+        <!-- Add any additional information or branding elements as desired -->
+        <h3>&copy; {{ year }} Refined Radiance. All rights reserved.</h3>
+    </div>
+</body>
+</html>

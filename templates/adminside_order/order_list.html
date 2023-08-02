@@ -1,0 +1,140 @@
+{% extends 'adminside/adminbase.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Orders List</h2>
+                        
+                    </div>
+                    
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                                <select class="form-select">
+                                    <option selected>All category</option>
+                                    <option>Electronics</option>
+                                    <option>Clothes</option>
+                                    <option>Automobile</option>
+                                </select>
+                            </div>
+                            {% comment %} <div class="col-md-2 col-6">
+                                <input type="date" value="02.05.2021" class="form-control" />
+                            </div> {% endcomment %}
+                            {% comment %} <div class="col-md-2 col-6">
+                                <select class="form-select">
+                                    <option selected>Status</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div> {% endcomment %}
+                        </div>
+                    </header>
+                     <!-- card-header end// -->
+                    
+                    {% include 'includes/alerts.html' %}
+
+     
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tracking No:</th>
+                                    <th>Payment mode</th> 
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <a class="itemside" href="#">
+                                            <div class="left">
+                                                {% for image in product.images.all|slice:":1" %}
+                                                <img src="{{image.image.url}}" class="img-sm img-thumbnail" alt="Item" />
+                                                {% endfor %}
+                                            </div>
+                                            <div class="info">
+                                                <h6 class="mb-0">{{order.tracking_no}}</h6>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>{{order.payment_mode}}</td>
+                                    <td>{{order.total_price}}</td>
+                                    <td>
+                                         {% if order.status == 'Pending' %}
+                                            <span class="badge rounded-pill alert-warning">{{ order.status }}</span>
+                                        {% elif order.status == 'Out For Shipping' %}
+                                            <span class="badge rounded-pill alert-warning">{{ order.status }}</span>
+                                        {% elif order.status == 'Completed' %}
+                                            <span class="badge rounded-pill alert-success">{{ order.status }}</span>
+                                        {% elif order.status == 'Cancelled' %}
+                                            <span class="badge rounded-pill alert-danger">{{ order.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>{{order.created_at}}</td>
+                                    <td>
+                                        
+                                        {% comment %} <div class="dropdown">
+                                            <button class="btn btn-sm font-sm rounded btn-brand dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="material-icons md-edit"></i> Change Status
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-sm" aria-labelledby="statusDropdown">
+                                                <li><a class="dropdown-item" href="#">Pending</a></li>
+                                                <li><a class="dropdown-item" href="#">Out For Shipping</a></li>
+                                                <li><a class="dropdown-item" href="#">Completed</a></li>
+                                            </ul>
+                                        </div> {% endcomment %}
+
+                                        {% if order.status != 'Cancelled' and order.status != 'Completed' %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm font-sm rounded btn-brand dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="material-icons md-edit"></i> Change Status
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-sm" aria-labelledby="statusDropdown">
+                                                {% for choice in order.order_status %}
+                                                    {% if choice.0 != order.status %}
+                                                        <li>
+                                                            <form action="{% url 'update_order_status' order.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="new_status" value="{{ choice.0 }}">
+                                                                <button type="submit" class="dropdown-item">{{ choice.1 }}</button>
+                                                            </form>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        
+                                        {% if order.status != 'Cancelled' and order.status != 'Completed' %}
+                                        <a href="{% url 'cancel_order' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: red; color: white;" onclick="return confirm('Are you sure you want to cancel this order?');">
+                                            <i class="material-icons md-delete_forever"></i> Cancel Order
+                                        </a>
+                                        {% endif %}
+                                        
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+  
+            </section>
+            <!-- content-main end// -->
+{% endblock %}

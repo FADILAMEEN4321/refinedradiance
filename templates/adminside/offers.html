@@ -1,0 +1,90 @@
+{% extends 'adminside/adminbase.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Offer management</h2>
+                        
+                    </div>
+                    <div>
+                        <a href="{% url 'add_offer' %}" class="btn btn-primary btn-sm rounded">Add Offer</a>
+                    </div>
+                    
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                                <select class="form-select">
+                                    <option selected>All category</option>
+                                    <option>Electronics</option>
+                                    <option>Clothes</option>
+                                    <option>Automobile</option>
+                                </select>
+                            </div>
+                            {% comment %} <div class="col-md-2 col-6">
+                                <input type="date" value="02.05.2021" class="form-control" />
+                            </div> {% endcomment %}
+                            {% comment %} <div class="col-md-2 col-6">
+                                <select class="form-select">
+                                    <option selected>Status</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div> {% endcomment %}
+                        </div>
+                    </header>
+                     <!-- card-header end// -->
+                    
+                    {% include 'includes/alerts.html' %}
+
+     
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Offer name</th>
+                                    <th>Discount Percentage</th> 
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>Action</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for offer in offers %}
+                                <tr>
+                                    
+                                    <td>{{offer.name}}</td>
+                                    <td>{{offer.discount_percentage}}</td>
+                                    <td>{{offer.start_date}}</td>
+                                    <td>{{offer.end_date}}</td>
+                                    
+                                    
+                                    <td>
+                                        <a href="{% url 'remove_offer' offer.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: red; color: white;" onclick="return confirm('Are you sure you want to remove this offer?');">
+                                            <i class="material-icons md-delete_forever"></i> Remove 
+                                        </a>
+                                    </td>
+                                        
+                            
+
+                                        
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+  
+            </section>
+            <!-- content-main end// -->
+{% endblock %}

@@ -1,0 +1,17 @@
+
+
+{% if messages %}
+        {% for message in messages %}
+            <script>
+            {% if message.tags == 'success' %}
+                toastr.success("{{ message }}");
+            {% elif message.tags == 'info' %}
+                toastr.info("{{ message }}");
+            {% elif message.tags == 'warning' %}
+                toastr.warning("{{ message }}");
+            {% elif message.tags == 'error' %}
+                toastr.error("{{ message }}");
+            {% endif %}
+            </script>
+        {% endfor %}
+    {% endif %}  

@@ -1,0 +1,173 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .left-button {
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+    
+    .right-button {
+        margin-left: auto;
+        margin-bottom: 10px;
+
+    }
+    
+</style>
+
+
+
+
+
+
+
+
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">Order Details</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+    {% include 'includes/alerts.html' %}
+    
+    <!-- ...:::: Start Wishlist Section:::... -->
+    <div class="wishlist-section">
+        <!-- Start Cart Table -->
+        
+        <div class="wishlish-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+            
+             
+            <div class="container">
+                {% comment %} <div class="button-container">
+                    <a href="{% url 'order_invoice' order.id %}" class="btn btn-md btn-black-default-hover">
+                        <i class="fas fa-download"></i> Download Invoice
+                    </a>
+                    <a href="{% url 'orders' %}" class="btn btn-md btn-black-default-hover" >Back</a>
+                </div> {% endcomment %}
+
+
+                <div class="button-container">
+                    <div class="left-button">
+                        <a href="{% url 'order_invoice' order.id %}" class="btn btn-md btn-black-default-hover">
+                            <i class="fas fa-download"></i> Download Invoice
+                        </a>
+                    </div>
+                    <div class="right-button">
+                        <a href="{% url 'orders' %}" class="btn btn-md btn-black-default-hover">Back</a>
+                    </div>
+                </div>
+                
+
+
+
+
+                <div class="row">
+                     
+                    <div class="col-12">
+                       
+                        
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <!-- Start Wishlist Table Head -->
+                                    <thead>
+                                        <tr>
+                                            {% comment %} <th class="product_remove">Delete</th> {% endcomment %}
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_stock">Quantity</th>
+                                            <th class="product_addcart">Action</th>
+                                            
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+                                        {% for order_item in order_items %}
+                                        <!-- Start Wishlist Single Item-->
+                                        <tr>
+                                            <td class="product_thumb"><a href="product-details-default.html"><img
+                                                        src="{{ order_item.get_orderitem_product_image }}"
+                                                        alt=""></a></td>
+                                            <td class="product_name"><a href="product-details-default.html">{{ order_item.product.name }}</a></td>
+                                            <td class="product-price">&#8377;{{ order_item.price }}</td>
+                                            <td class="product_stock">
+                                                {{ order_item.quantity }}
+                                            </td>
+                                           
+                                            <td class="product_addcart">
+                                                {% if order_item.order.status == 'Completed' %}
+                                                {% if order_item.is_returned %}
+                                                <p>You have returned this product.
+                                                {% else %}
+                                                <a href="{% url 'return_order_item' order_item.id %}" class="btn btn-md btn-golden">return</a>
+                                                {% comment %} <a href="#" class="btn btn-md btn-golden" data-bs-toggle="modal" data-bs-target="#return{{forloop.counter}}">return</a> {% endcomment %}
+                                                {% endif %}
+                                                {% endif %} 
+                                                </td>
+                                               
+
+
+
+
+
+
+                                        </tr> <!-- End Wishlist Single Item-->
+
+
+                                             
+
+
+
+
+                                        
+
+                                              
+                                    </tbody>
+
+                                     <!-- Modal -->
+                                     <div class="modal fade" id="return{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              {{order_item.id}}
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div> 
+                                      {% endfor %}
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Cart Table -->
+    </div> <!-- ...:::: End Wishlist Section:::... -->
+   
+
+ 
+
+
+
+    {% endblock %}    

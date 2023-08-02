@@ -1,0 +1,106 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+  
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcrumb-title" style="color: white;">Add Address</h1>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<div class="customer-login">
+    <div class="container">
+ <!--register area start-->
+<div class="col-lg-6 col-md-6">
+    <div class="account_form register" data-aos="fade-up" data-aos-delay="200">
+        
+        {% include 'includes/alerts.html' %}
+
+
+        <div class="container">
+            <div style="display: flex; align-items: center;">
+                <h3 style="margin-right: auto;">New Address</h3>
+                <a href="{% url 'address' %}" class="btn btn-md btn-black-default-hover">back</a>
+              </div>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="default-form-box">
+                    <label for="id_fullname">Full Name</label>
+                    <input type="text" id="id_fullname" name="full_name" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_contact_number">Contact Number</label>
+                    <input type="text" id="id_contact_number" name="contact_number" required pattern="[0-9]{10}">
+                    <small class="text-muted">Please enter a 10-digit phone number.</small>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_house_name">House Name</label>
+                    <input type="text" id="id_house_name" name="house_name" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_landmark">Landmark</label>
+                    <input type="text" id="id_landmark" name="landmark" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_city">City</label>
+                    <input type="text" id="id_city" name="city" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_district">District</label>
+                    <input type="text" id="id_district" name="district" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_state">State</label>
+                    <input type="text" id="id_state" name="state" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_country">Country</label>
+                    <input type="text" id="id_country" name="country" required>
+                </div>
+                
+                <div class="default-form-box">
+                    <label for="id_pincode">Pincode</label>
+                    <input type="text" id="id_pincode" name="pincode" pattern="[0-9]{6}" required>
+                    <small>Enter a 6-digit pincode.</small>
+                </div>
+
+
+                
+                
+                <div class="login_submit">
+                    <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+</div> 
+
+
+
+
+
+
+<!--register area end-->
+
+</div>
+</div> <!-- ...:::: End Customer Login Section :::... -->
+
+{% endblock %}
