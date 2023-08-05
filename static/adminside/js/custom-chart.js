@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-
+ 
     /*Sale statistics Chart*/
     if ($('#myChart').length) {
         var ctx = document.getElementById('myChart').getContext('2d');
