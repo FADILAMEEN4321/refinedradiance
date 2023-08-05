@@ -18,7 +18,9 @@ class Cart(models.Model):
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True,blank=True)
     is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
+    # method to get cart total amount.
     def get_cart_total(self):
         cart_items = self.cart_items.all()
         price = 0
@@ -38,7 +40,9 @@ class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null= True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
+    # method to get the cartitem total price
     def get_product_price(self):
         # Calculate the discounted price using the discounted_price method of the associated product
         discounted_price = self.product.discounted_price()
@@ -46,8 +50,12 @@ class CartItem(models.Model):
         # Return the total price after applying the offer discount
         return discounted_price * self.quantity
     
+
+    # just to get the first image of a cartitem to show in cart page.
     def get_product_image(self):
         return self.product.images.first().image.url
+    
+
     
     class Meta:
         ordering = ['created_at']

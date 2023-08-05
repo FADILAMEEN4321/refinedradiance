@@ -11,6 +11,5 @@ urlpatterns = [
    path('offer_management', offer_management, name="offer_management"),
    path('add_offer', add_offer, name="add_offer"),
    path('remove_offer/<int:offer_id>', remove_offer, name="remove_offer"),
-
    path('get_similar_products/', get_similar_products, name='get_similar_products'),
 ]

@@ -13,12 +13,12 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.email
     
-    # method to get total cart items.
+    # method to get number of cart items.
     def get_cart_count(self):
         from cart.models import CartItem
         return CartItem.objects.filter(cart__is_paid=False, cart__user=self).count()
     
-    # method to get total wishlist items.
+    # method to get number of wishlist items.
     def get_wishlist_count(self):
         from wishlist.models import Wishlist
         return Wishlist.objects.filter(user=self).count()

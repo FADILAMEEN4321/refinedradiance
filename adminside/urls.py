@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+
     path('dashboard',dashboard, name='dashboard'),
 
     #user management
@@ -22,16 +23,19 @@ urlpatterns = [
     path('delete_category/<int:category_id>',delete_category, name='delete_category'),
     path('edit_category<int:category_id>',edit_category, name='edit_category'),
 
+
     #brand managment
     path('brand_management',brand_management, name='brand_management'),
     path('add_brand',add_brand, name='add_brand'),
     path('delete_brand/<int:brand_id>',delete_brand, name='delete_brand'),
     path('edit_brand<int:brand_id>',edit_brand, name='edit_brand'),
 
+
     #banner managment
     path('add_banner',add_banner, name='add_banner'),
 
-     #image managment
+
+    #image managment
     path('add_image',add_image, name='add_image'),
 
 

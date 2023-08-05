@@ -4,8 +4,6 @@ from products.models import Product
 
 
 
-# Create your models here.
-
 class Order(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=150, null=False)
@@ -29,6 +27,7 @@ class Order(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.id, self.tracking_no)
     
+    # method to refund the order amount to user wallet on cancellation.
     def refund_on_cancel(self):
         # Calculate the refund amount 
         refund_amount = self.total_price

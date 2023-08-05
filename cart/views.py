@@ -53,6 +53,7 @@ def cart(request):
 
 
 
+
 @login_required(login_url='user_login')
 def remove_coupon(request,cart_id):
     cart = Cart.objects.get(id=cart_id)
@@ -61,6 +62,7 @@ def remove_coupon(request,cart_id):
     messages.success(request,'Coupon removed.')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
   
+
 
 
 @login_required(login_url='user_login')
@@ -98,6 +100,7 @@ def add_to_cart(request,product_id):
 
 
  
+
 @login_required(login_url='user_login')
 def remove_cart(request,cart_item_id):
     try:
@@ -107,6 +110,8 @@ def remove_cart(request,cart_item_id):
         print(e)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 
 
 #using ajax
@@ -127,7 +132,9 @@ def increment_quantity(request, cart_item_id):
         return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Stock limit reached for this product.'}, status=400)
-    
+
+
+
 
 #using ajax
 @login_required(login_url='user_login')
@@ -150,6 +157,7 @@ def decrement_quantity(request, cart_item_id):
 
 
 
+
 @login_required(login_url='user_login')
 def checkout(request):
     user_addresses = Address.objects.filter(user=request.user)
@@ -164,6 +172,8 @@ def checkout(request):
         'user_addresses':user_addresses,
     }
     return render(request,'cart/checkout.html',context)
+
+
 
 
 @login_required(login_url='user_login')
@@ -222,6 +232,8 @@ def placeorder(request):
     return redirect('orders')    
 
 
+
+
 def razorpaycheck(request):
     cart = Cart.objects.get(user=request.user,is_paid=False)
     total_price = cart.get_cart_total()
@@ -232,6 +244,7 @@ def razorpaycheck(request):
 
 
 
+
 #adminside
 def coupon_list(request):
     coupons = Coupon.objects.all().order_by('-created_at')
@@ -239,6 +252,8 @@ def coupon_list(request):
         'coupons':coupons
     }
     return render(request,'cart/coupon_list.html',context)
+
+
 
 
 #adminside
@@ -262,6 +277,8 @@ def create_coupon(request):
     return render(request,'cart/create_coupon.html')
 
 
+
+
 #adminside
 def delete_coupon(request,coupon_id):
     coupon = Coupon.objects.get(id=coupon_id)
@@ -269,6 +286,8 @@ def delete_coupon(request,coupon_id):
     coupon.delete()
     messages.warning(request, f"Coupon {coupon_code} deleted successfully.")
     return redirect('coupon_list')
+
+
 
 
 #adminside 

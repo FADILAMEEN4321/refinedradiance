@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from cart.models import Cart,CartItem
 
-# Create your views here.
+
+
 
 @login_required(login_url='user_login')
 def wishlist(request):
@@ -15,6 +16,7 @@ def wishlist(request):
         'wishlist_items': wishlist_items
     }
     return render(request,'wishlist/wishlist.html',context)
+
 
 
 @login_required(login_url='user_login')

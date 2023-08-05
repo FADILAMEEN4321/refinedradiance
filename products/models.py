@@ -7,8 +7,6 @@ from django.contrib.auth.models import AnonymousUser
 
 
 
-# Create your models here.
-
 class Offer(models.Model):
     name = models.CharField(max_length=200)
     discount_percentage = models.DecimalField(max_digits=5,decimal_places=2)
@@ -57,6 +55,7 @@ class Product(models.Model):
     offers = models.ManyToManyField(Offer, blank=True, related_name='products')
 
     
+    # method to get the price of a product after offer discounts.
     def discounted_price(self):
         product_discount = 0
         category_discount = 0
@@ -80,6 +79,7 @@ class Product(models.Model):
         return discounted_price
     
 
+    # method to get the offer dis percentage of a product.
     def get_max_discount_percentage(self):
         product_discount = 0
         category_discount = 0
@@ -108,11 +108,6 @@ class Product(models.Model):
             self.slug = slugify(self.name)  
         super().save(*args, **kwargs)
 
-
-
-
-
-   
 
 
 

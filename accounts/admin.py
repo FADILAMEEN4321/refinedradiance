@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import UserProfile,Address
 from django import forms
 
+
 class UserProfileAdminForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -10,6 +11,7 @@ class UserProfileAdminForm(forms.ModelForm):
         widgets = {
             'profile_photo': forms.ClearableFileInput(attrs={'accept': 'image/*'})
         }
+
 
 class UserProfileAdmin(UserAdmin):
     list_display = ('username', 'email', 'phone_number','wallet', 'is_blocked')
@@ -23,6 +25,7 @@ class UserProfileAdmin(UserAdmin):
     )
     search_fields = ('username', 'email', 'phone_number')
     ordering = ('username',)
+
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Address)

@@ -12,7 +12,6 @@ from .models import Address
 from orders.models import Order,OrderItem,ReturnItem
 from products.models import Product
 from django.contrib.auth import update_session_auth_hash
-from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import render_to_string
@@ -32,17 +31,8 @@ from twilio.rest import Client
 
 
 
+#================================ User authentication =========================================>
 
-
-
-
-
-
-
-
-
-
-#------------------------------- User authentication ----------------------------------------->
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
 def profile(request):
@@ -180,6 +170,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 
 
+
 def send_otp_on_phone(phone_number,otp):
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
     message = client.messages.create(
@@ -187,8 +178,13 @@ def send_otp_on_phone(phone_number,otp):
         from_="+16817716393",
         body=f"Hi, Welcome to Refined Radiance your OTP is {otp}")
 
+
+
+
 def generate_otp():
     return str(random.randint(100000, 999999))
+
+
 
 
 def otp_login(request):
@@ -209,6 +205,8 @@ def otp_login(request):
             return redirect('otp_login')
 
     return render(request,'account/otp_login.html')
+
+
 
 
 def verify_otp(request,phone_number):
@@ -239,8 +237,8 @@ def verify_otp(request,phone_number):
 
 
 
+#================================= Admin authentication =======================================>
 
-#-------------------------------- Admin authentication -------------------------------------->
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 def admin_login(request):
     if request.user.is_authenticated:
@@ -268,7 +266,8 @@ def admin_logout(request):
 
 
 
-#-------------------------------- User profile management -------------------------------------->
+#================================= User profile management =====================================>
+
 @login_required(login_url='user_login')
 def edit_profile(request):
     if request.method == 'POST':
@@ -301,6 +300,8 @@ def edit_profile(request):
         return HttpResponse('<div class="alert alert-success alert-dismissible fade show" role="alert">Profile edited successfully.</div>')
 
 
+
+
 @login_required(login_url='user_login')
 def address(request):
     user = request.user
@@ -309,6 +310,8 @@ def address(request):
     return render(request,'account/address.html',{'addresses': addresses})
 
 
+
+#To add address from profile page.
 @login_required(login_url='user_login')
 def add_address(request):
     user = request.user
@@ -345,6 +348,8 @@ def add_address(request):
         return redirect('address')
         
     return render(request,'account/add_address.html') 
+
+
 
 
 #To add address from checkout page.
@@ -384,6 +389,7 @@ def add_order_address(request):
         return redirect('checkout')
         
     return render(request,'account/add_order_address.html') 
+
 
 
 
@@ -431,11 +437,13 @@ def edit_address(request,address_id):
   
    
 
+
 @login_required(login_url='user_login')
 def delete_address(request,address_id):
     Address.objects.get(id=address_id).delete()
     messages.warning(request,'Address has been removed successfully.')
     return redirect('address')
+
 
 
 
@@ -471,12 +479,16 @@ def change_password(request):
         return response
 
 
+
+
 #userside
 @login_required(login_url='user_login')
 def orders(request):
     user = request.user
     orders = Order.objects.filter(user=user).order_by('-created_at')
     return render(request,'account/orders.html',{'orders':orders})  
+
+
 
 
 #userside
@@ -501,6 +513,8 @@ def cancel_user_order(request,order_id):
     return redirect('orders') 
 
 
+
+
 def order_details(request, order_id):
     order = Order.objects.get(id=order_id)
     order_items = OrderItem.objects.filter(order_id=order_id)
@@ -509,6 +523,8 @@ def order_details(request, order_id):
         'order':order
     }
     return render(request,'account/order_details.html',context)
+
+
 
 
 def return_order_item(request,order_item_id):
@@ -528,6 +544,7 @@ def return_order_item(request,order_item_id):
 
 
 
+#function to generate order invoice.
 def generate_invoice_pdf(order):
     # Render the invoice template to a string
     invoice_html = render_to_string('account/invoice_template.html', {'order': order})
@@ -542,6 +559,8 @@ def generate_invoice_pdf(order):
     return temp_file_path
 
 
+
+# function to download order invoice.
 def download_invoice(request, order_id):
     order = Order.objects.get(id=order_id)
     invoice_path = generate_invoice_pdf(order)

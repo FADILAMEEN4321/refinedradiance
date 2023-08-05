@@ -2,7 +2,6 @@ from django.db import models
 from accounts.models import UserProfile
 from products.models import Product
 
-# Create your models here.
 
 
 class Wishlist(models.Model):

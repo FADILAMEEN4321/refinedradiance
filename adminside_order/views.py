@@ -12,6 +12,8 @@ from io import BytesIO
 from django.contrib.auth.decorators import login_required
 
 
+
+
 @login_required(login_url='user_login')
 def order_management(request):
 
@@ -21,6 +23,8 @@ def order_management(request):
     orders = Order.objects.all().order_by('-created_at')
     
     return render(request,'adminside_order/order_list.html',{'orders': orders} )
+
+
 
 
 #adminside
@@ -48,6 +52,8 @@ def cancel_order(request,order_id):
     return redirect('order_management')
 
 
+
+
 @login_required(login_url='user_login')
 def update_order_status(request, order_id):
 
@@ -63,6 +69,9 @@ def update_order_status(request, order_id):
         messages.warning(request,'Order status has been changed successfully.')
 
     return redirect('order_management')
+
+
+
 
 @login_required(login_url='user_login')
 def sales_report(request):
@@ -106,6 +115,8 @@ def sales_report(request):
     return render(request,'adminside_order/sales_report.html',context)
 
 
+
+
 @login_required(login_url='user_login')
 def download_sales_report_csv(request):
 
@@ -135,6 +146,8 @@ def download_sales_report_csv(request):
         writer.writerow([order.id, order.payment_mode, order.total_price, order.status, order.created_at])
 
     return response
+
+
 
 
 @login_required(login_url='user_login')

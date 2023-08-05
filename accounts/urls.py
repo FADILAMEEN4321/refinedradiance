@@ -22,7 +22,7 @@ urlpatterns = [
       path('verify-otp<int:phone_number>', verify_otp, name="verify_otp"),
 
 
-      #urls related to USER PROFILE.
+      #user profile urls.
       path('profile', profile, name='profile'),
       path('edit_profile/', edit_profile, name='edit_profile'),
       path('address', address, name='address'),
@@ -35,7 +35,6 @@ urlpatterns = [
       path('cancel_user_order/<int:order_id>', cancel_user_order, name='cancel_user_order'),
       path('order_details<int:order_id>', order_details, name='order_details'),
       path('return_order_item/<int:order_item_id>', return_order_item, name='return_order_item'),
-#     path('remove_address/<int:address_id>', remove_address ,name="remove_address"),
       path('order_invoice/<int:order_id>', download_invoice, name='order_invoice'),
 
 

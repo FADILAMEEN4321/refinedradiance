@@ -16,7 +16,7 @@ import json
 from datetime import datetime, timedelta
 
 
-
+# <=============================== Dashboard management ==========================================>
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
 def dashboard(request):
@@ -43,12 +43,15 @@ def dashboard(request):
     labels = [item['payment_mode'] for item in payment_mode_counts]
     data = [item['order_count'] for item in payment_mode_counts]  
 
+
     # Query to get the count of orders for each order status
     order_status_counts = Order.objects.values('status').annotate(order_count=Count('status'))
     
+
     # Extract labels and data for the chart
     order_labels = [item['status'] for item in order_status_counts]
     order_data = [item['order_count'] for item in order_status_counts]
+
 
     # Calculate the last 6 months from the current date
     today = datetime.now()
@@ -57,7 +60,8 @@ def dashboard(request):
         previous_month = today - timedelta(days=30*i)
         last_six_months.append(previous_month.strftime('%B'))
 
-     # Calculate total sales for each of the last six months
+
+    # Calculate total sales for each of the last six months
     total_sales_data = []
     for i in range(6):
         start_date = today - timedelta(days=30*(i+1))
@@ -100,8 +104,6 @@ def dashboard(request):
         product_names.append(shortened_name)
         sales_counts.append(product['sales_count'])
 
-       
-
 
     context = {
         'total_revenue': total_revenue,
@@ -121,15 +123,16 @@ def dashboard(request):
         'order_labels': order_labels,
         'order_data': order_data,
 
-       
-       'category_sales_data': category_sales_data,
-       'category_names': category_names,
+        'category_sales_data': category_sales_data,
+        'category_names': category_names,
 
-       'product_names': product_names,
-       'sales_counts': sales_counts,
+        'product_names': product_names,
+        'sales_counts': sales_counts,
 
     }
+
     return render(request,'adminside/dashboard.html',context)
+
 
 
 # Function to shorten product names (truncate to a certain length)
@@ -138,7 +141,11 @@ def shorten_product_name(name, max_length=9):
         return name
     return name[:max_length - 2] + '..'
 
-# <=============================== User management ==========================================>
+
+
+
+
+# <=============================== User management ===========================================>
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
@@ -168,6 +175,8 @@ def block_unblock_user(request, user_id):
     user.save()
   
     return redirect('user_management')
+
+
 
 # <================================ Product management =======================================>
 
@@ -233,6 +242,8 @@ def add_products(request):
     return render(request,'adminside/add_product.html',context)
 
 
+
+
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
 def delete_products(request,product_id):
@@ -245,6 +256,8 @@ def delete_products(request,product_id):
     product_obj.delete()
     messages.warning(request,f'Product {product_name} deleted successfully.')
     return redirect('product_list')
+
+
 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -300,7 +313,6 @@ def edit_products(request,product_id):
 
 
 
-
 # <================================ Category management ====================================>    
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -310,6 +322,8 @@ def category_management(request):
         return redirect('index')
     categories = Category.objects.all()
     return render(request,'adminside/category_management.html',{'categories':categories})
+
+
 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -337,6 +351,8 @@ def add_category(request):
     return render(request,'adminside/add_category.html')
 
 
+
+
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
 def delete_category(request,category_id):
@@ -349,6 +365,8 @@ def delete_category(request,category_id):
     category_obj.delete()
     messages.warning(request,f'{category_name} category deleted.')
     return redirect('category_management')
+
+
 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -390,8 +408,10 @@ def edit_category(request,category_id):
 
     return render(request,'adminside/edit_category.html',context)
 
-# <================================== Brand management =====================================> 
 
+
+
+# <================================== Brand management =====================================> 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
 @login_required(login_url='user_login')
@@ -402,6 +422,8 @@ def brand_management(request):
     
     brands = Brand.objects.all().order_by('id')
     return render(request,'adminside/brand_management.html',{'brands':brands}) 
+
+
 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True)
@@ -465,6 +487,8 @@ def edit_brand(request,brand_id):
             
     return render(request,'adminside/edit_brand.html',{'brand':brand})
 
+
+
 # <================================= Banner management ======================================> 
 
 @cache_control(no_cache=True, must_revalidate=True,no_store=True) 
@@ -485,6 +509,8 @@ def add_banner(request):
     
     context = {'form': form}
     return render(request, 'adminside/add_banner.html', context)
+
+
 
 
 # <=================================== Image management ======================================> 
@@ -511,6 +537,8 @@ def add_image(request):
     return render(request, 'adminside/add_image.html', {'products': products})
 
 
+
+
 @login_required(login_url='user_login')
 def product_image_management(request):
 
@@ -522,6 +550,8 @@ def product_image_management(request):
         'products':products
     }
     return render(request,'adminside/all_product_images.html',context)
+
+
 
 
 @login_required(login_url='user_login')

@@ -5,12 +5,16 @@ from django.contrib import messages
 from products.models import Offer
 from django.http import JsonResponse
 
-
+   
 def custom_404_page(request, exception):
     return render(request, '404.html', status=404)
 
+
+
 def about_us(request):
     return render(request,'products/about_us.html')
+
+
 
 def contact_us(request):
     return render(request,'products/contact_us.html')
@@ -56,6 +60,7 @@ def index(request):
     return render(request,'products/index.html',context)
 
 
+
 def get_similar_products(request):  
     if request.method == 'GET':
         search_term = request.GET.get('search_term', '')
@@ -67,6 +72,7 @@ def get_similar_products(request):
         }
         return JsonResponse(data)
     return JsonResponse({}, status=400)
+
 
 
 def shop(request):
@@ -108,8 +114,8 @@ def product_details(request,product_id):
     request.session['recently_viewed'] = updated_recently_viewed
 
 
-   
     return render(request,'products/single_product.html',{'product_obj':product_obj})
+
 
 
 def searched(request):
@@ -163,6 +169,7 @@ def add_offer(request):
 
 
     return render(request,'adminside/add_offer.html')
+
 
 
 def remove_offer(request,offer_id):
