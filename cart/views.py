@@ -229,7 +229,7 @@ def placeorder(request):
         payMode = request.POST.get('payment_mode')
         if (payMode == "Paid by Razorpay"):
             return JsonResponse({'status':"Your order has been placed successfully."})
-    return redirect('orders')    
+    return render(request,'cart/order_confirmation.html',context)    
 
 
 

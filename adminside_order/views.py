@@ -10,6 +10,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import BytesIO
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 
 
@@ -21,6 +22,11 @@ def order_management(request):
         return redirect('index')
     
     orders = Order.objects.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        orders = Order.objects.filter(tracking_no__istartswith=searched)
+        return render(request,'adminside_order/order_list.html',{'orders': orders})
     
     return render(request,'adminside_order/order_list.html',{'orders': orders} )
 
@@ -96,9 +102,22 @@ def sales_report(request):
     else:
         end_date = None
 
+    # Ensure that the end date is not in the future
+    today = timezone.now().date()
+    if end_date and end_date.date() > today:
+        messages.error(request, 'End date cannot be in the future.')
+        return redirect('sales_report')
+    
+    # Ensure that the start date is not after the end date
+    if start_date and end_date and start_date > end_date:
+        messages.error(request, 'Start date cannot be after the end date.')
+        return redirect('sales_report')
+
+
     # Filter orders based on date range if start_date and end_date are provided
     if start_date and end_date:
         orders = Order.objects.filter(created_at__range=[start_date, end_date])
+        
         
                 
 

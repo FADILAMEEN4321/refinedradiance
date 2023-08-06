@@ -13,16 +13,15 @@
                 </div>
                 <div class="card mb-4">
                     <header class="card-header">
+                        
                         <div class="row align-items-center">
-                            
-                            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                                <select class="form-select">
-                                    <option selected>All category</option>
-                                    <option>Electronics</option>
-                                    <option>Clothes</option>
-                                    <option>Automobile</option>
-                                </select>
-                            </div>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="col-lg-4 col-md-6 me-auto">
+                                    <input type="text" placeholder="Search..." name="searched" class="form-control" />
+                                </div>
+                              </form>
+                           
                             {% comment %} <div class="col-md-2 col-6">
                                 <input type="date" value="02.05.2021" class="form-control" />
                             </div> {% endcomment %}

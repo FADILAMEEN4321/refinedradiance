@@ -94,13 +94,10 @@ def shop(request):
 
     # sorting
     if sort_by == 'latest':
-        print('dfsgf')
         products = products.order_by('-created_at')
     elif sort_by == 'low to high':
-        print('hellodvvx')
         products = products.order_by('price')
     elif sort_by == 'high to low':
-        print('hello')
         products = products.order_by('-price')
     else:
         products = products.order_by('-created_at')    
@@ -154,9 +151,12 @@ def searched(request):
     if request.method == 'GET':
         searched = request.GET.get('searched')
         products = Product.objects.filter(name__iexact= searched)
+
+    count = products.count()    
     
     context = {
-        'products': products
+        'products': products,
+        'count': count
     }
 
     return render(request,'products/searched.html', context)

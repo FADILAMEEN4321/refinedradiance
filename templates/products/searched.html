@@ -1,5 +1,55 @@
 {% extends 'products/base.html' %}
 {% block content %}
+<style>
+    /* Define styles for the content container */
+    .content1 {
+        display: flex;
+        {% comment %} align-items: center; {% endcomment %}
+        
+        padding: 10px;
+        
+        {% comment %} background: wheat; {% endcomment %}
+    }
+
+    /* Styles for the content-left div */
+    .content-left {
+        flex: 1;
+    }
+
+    /* Styles for the title link */
+    .title a {
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Styles for the content-right div */
+    .content-right {
+        flex: 1;
+        text-align: right;
+    }
+
+    /* Styles for the price and discounted price */
+    .price {
+        font-size: 14px;
+        color: #f00;
+        
+    }
+
+    /* Styles for the discounted price */
+    .price p {
+        font-size: 18px;
+        color: #000; /* Red color for the discounted price */
+    }
+
+    /* Styles for the discount percentage */
+    .discount-percentage {
+        font-size: 14px;
+        color: #00f; /* Blue color for the discount percentage */
+    }
+</style>
+
+
 
     <!-- ...:::: Start Breadcrumb Section:::... -->
     <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
@@ -48,11 +98,11 @@
 
                                         <!-- Start Page Amount -->
                                         <div class="page-amount ml-2">
-                                            <span>Showing 1–9 of 21 results</span>
+                                            <span>Showing {{count}} results</span>
                                         </div> <!-- End Page Amount -->
                                     </div> <!-- End Sort tab Button -->
 
-                                    <!-- Start Sort Select Option -->
+                                    {% comment %} <!-- Start Sort Select Option -->
                                     <div class="sort-select-list d-flex align-items-center">
                                         <label class="mr-2">Sort By:</label>
                                         <form action="#">
@@ -67,7 +117,7 @@
                                                 </select>
                                             </fieldset>
                                         </form>
-                                    </div> <!-- End Sort Select Option -->
+                                    </div> <!-- End Sort Select Option --> {% endcomment %}
 
 
 
@@ -98,6 +148,13 @@
                                         <img src="{{image.image.url}}" alt="">
                                     </a>
                                     {% endfor %}
+                                    {% if product.offers.exists or product.category.offers.exists %}
+                                            <div class="tag" >
+                                                <span class="discount-percentage" style="background:#82c74f; border-radius:3px;">
+                                                    {{ product.get_max_discount_percentage }}% off <!-- Display the discount percentage -->
+                                                    </span>
+                                            </div>
+                                            {% endif %}
                                     <div class="action-link">
                                         <div class="action-link-left">
                                             {% comment %} <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add to
@@ -137,16 +194,19 @@
 
 
 
-                                         {% if product.offers.exists or product.category.offers.exists %}
-                                            {% with discounted_price=product.discounted_price %}
-                                                <span class="price">
-                                                    <del>&#8377; {{ product.price }}</del> <!-- Display the regular price --><br>
-                                                    <p>&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
-                                                </span>
-                                            {% endwith %}
-                                        {% else %}
-                                            <span class="price">&#8377; {{ product.price }}</span> <!-- If no discount, display the regular price -->
-                                        {% endif %}
+                                        {% if product.offers.exists or product.category.offers.exists %}
+                                        {% with discounted_price=product.discounted_price %}
+                                            <span class="price">
+                                                
+                                                <p style="margin-bottom:0px;">&#8377; {{ discounted_price|floatformat:2 }}</p> <!-- Display the discounted price -->
+                                                <del>&#8377; {{ product.price }}</del> <!-- Display the regular price -->
+                                            </span>
+                                        {% endwith %}
+                                    {% else %}
+                                    <span class="price">
+                                        <p>&#8377; {{ product.price }}</p> <!-- If no discount, display the regular price -->
+                                    </span>
+                                    {% endif %}
 
 
 
@@ -168,7 +228,7 @@
                         </div>
                     </div> <!-- End Tab Wrapper -->
 
-
+{% comment %} 
                     <!-- Start Pagination -->
                     <div class="page-pagination text-center" data-aos="fade-up" data-aos-delay="0">
                         <ul>
@@ -178,7 +238,7 @@
                             <li><a href="#"><i class="ion-ios-skipforward"></i></a></li>
                         </ul>
                     </div> <!-- End Pagination -->
-                </div> <!-- End Shop Product Sorting Section  -->
+                </div> <!-- End Shop Product Sorting Section  --> {% endcomment %}
             </div>
         </div>
     </div> <!-- ...:::: End Shop Section:::... -->

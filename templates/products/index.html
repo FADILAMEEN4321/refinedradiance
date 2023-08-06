@@ -236,7 +236,13 @@
                                         <div class="content1">
                                             <div class="content-left">
                                                 <h6 class="title"><a href="{% url 'product_details' new_arrival.id %}">{{new_arrival.name}}</a></h6>
-                                                
+                                                <ul class="review-star">
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="empty"><i class="ion-android-star"></i></li>
+                                                </ul>
                                             </div>
                                             <div class="content-right">
                                        
@@ -252,7 +258,9 @@
                                                     </span>
                                                 {% endwith %}
                                             {% else %}
-                                                <span class="price">&#8377; {{ new_arrival.price }}</span> <!-- If no discount, display the regular price -->
+                                            <span class="price">
+                                                <p>&#8377; {{ new_arrival.price }}</p> <!-- If no discount, display the regular price -->
+                                            </span>
                                             {% endif %}
 
 
@@ -355,7 +363,13 @@
                                         <div class="content1">
                                             <div class="content-left">
                                                 <h6 class="title"><a href="{% url 'product_details' bestseller.id %}">{{bestseller.name}}</a></h6>
-                                                
+                                                <ul class="review-star">
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="empty"><i class="ion-android-star"></i></li>
+                                                </ul>
                                             </div>
                                             <div class="content-right">
                                        
@@ -371,7 +385,9 @@
                                                     </span>
                                                 {% endwith %}
                                             {% else %}
-                                                <span class="price">&#8377; {{ bestseller.price }}</span> <!-- If no discount, display the regular price -->
+                                            <span class="price">
+                                                <p>&#8377; {{ bestseller.price }}</p> <!-- If no discount, display the regular price -->
+                                            </span>
                                             {% endif %}
 
 
@@ -465,7 +481,13 @@
                                         <div class="content1">
                                             <div class="content-left">
                                                 <h6 class="title"><a href="{% url 'product_details' product.id %}">{{product.name}}</a></h6>
-                                                
+                                                <ul class="review-star">
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="fill"><i class="ion-android-star"></i></li>
+                                                    <li class="empty"><i class="ion-android-star"></i></li>
+                                                </ul>
                                             </div>
                                             <div class="content-right">
                                        
@@ -481,7 +503,9 @@
                                                     </span>
                                                 {% endwith %}
                                             {% else %}
-                                                <span class="price">&#8377; {{ product.price }}</span> <!-- If no discount, display the regular price -->
+                                            <span class="price">
+                                                <p>&#8377; {{ product.price }}</p> <!-- If no discount, display the regular price -->
+                                            </span>
                                             {% endif %}
 
 

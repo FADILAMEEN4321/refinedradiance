@@ -206,7 +206,13 @@
                                         <div class="content-left">
                                             <h6 class="title"><a
                                                     href="{% url 'product_details' product.id %}">{{ product.name }}</a></h6>
-                                           
+                                                    <ul class="review-star">
+                                                        <li class="fill"><i class="ion-android-star"></i></li>
+                                                        <li class="fill"><i class="ion-android-star"></i></li>
+                                                        <li class="fill"><i class="ion-android-star"></i></li>
+                                                        <li class="fill"><i class="ion-android-star"></i></li>
+                                                        <li class="empty"><i class="ion-android-star"></i></li>
+                                                    </ul>
                                         </div>
                                         <div class="content-right">
                                             {% comment %} <span class="price">{{ product.price }}</span> {% endcomment %}
@@ -224,7 +230,9 @@
                                                     </span>
                                                 {% endwith %}
                                             {% else %}
-                                                <span class="price">&#8377; {{ product.price }}</span> <!-- If no discount, display the regular price -->
+                                            <span class="price">
+                                                <p>&#8377; {{ product.price }}</p> <!-- If no discount, display the regular price -->
+                                            </span>
                                             {% endif %}
 
 

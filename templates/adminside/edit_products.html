@@ -96,7 +96,7 @@
                                     <div class="mb-4">
                                         <label class="form-label">Select offer for this Product.</label>
                                         <select class="form-select" name="offer_id" >
-                                            <option>Select an offer...</option> <!-- Add this empty option -->
+                                            <option value="">Select an offer...</option> <!-- Add this empty option -->
                                             {% for offer in offers %}
                                             <option value="{{ offer.id }}"> {{offer.name}} </option>
                                             {% endfor %}

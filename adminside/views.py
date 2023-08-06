@@ -158,7 +158,7 @@ def user_management(request):
         searched = request.POST['searched']
         searched_users = UserProfile.objects.filter(first_name__istartswith=searched).order_by('first_name')
         return render(request,'adminside/user_management.html',{'searched_users':searched_users})
-    
+     
     users = UserProfile.objects.all().order_by('first_name')
     return render(request,'adminside/user_management.html',{'users':users})
 
@@ -188,6 +188,12 @@ def product_list(request):
         return redirect('index')
 
     products = Product.objects.all()
+
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        products = Product.objects.filter(name__istartswith=searched)
+        return render(request,'adminside/product_list.html',{'products':products})
+    
     return render(request,'adminside/product_list.html',{'products':products})
 
 
@@ -278,7 +284,7 @@ def edit_products(request,product_id):
         stock = request.POST['stock']
         category_id = request.POST['category']
         offer_id = request.POST['offer_id']
-
+ 
         if name.strip() == '':
             messages.error(request,'Enter name correctly.')
             return HttpResponseRedirect(request.path_info)
@@ -288,7 +294,10 @@ def edit_products(request,product_id):
             return HttpResponseRedirect(request.path_info)
         
         category_obj = Category.objects.get(id=category_id)
-        offer = Offer.objects.get(id=offer_id)
+
+        if offer_id:
+            offer = Offer.objects.get(id=offer_id)
+
 
         product.name = name
         product.description = description
@@ -297,7 +306,8 @@ def edit_products(request,product_id):
         product.category = category_obj
 
         #adding offer to the product.
-        product.offers.add(offer)
+        if offer_id:
+            product.offers.add(offer)
 
         product.save()
         messages.success(request,'Product has been edited successfully.')
@@ -321,6 +331,12 @@ def category_management(request):
     if not request.user.is_superuser:
         return redirect('index')
     categories = Category.objects.all()
+
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        categories = Category.objects.filter(name__istartswith=searched)
+        return render(request,'adminside/category_management.html',{'categories':categories})
+
     return render(request,'adminside/category_management.html',{'categories':categories})
 
 
@@ -388,14 +404,15 @@ def edit_category(request,category_id):
             messages.warning(request,'Category name already exists.')
             return HttpResponseRedirect(request.path_info)
         
-        
-        offer = Offer.objects.get(id=offer_id) 
+        if offer_id:
+            offer = Offer.objects.get(id=offer_id) 
 
         category.name = name
         category.description = description
 
         #adding offer to the category.
-        category.offers.add(offer)
+        if offer_id:
+            category.offers.add(offer)
         category.save()
         messages.success(request,'Category edited successfully')
         return redirect('edit_category',category_id=category.id)
@@ -421,6 +438,12 @@ def brand_management(request):
         return redirect('index')
     
     brands = Brand.objects.all().order_by('id')
+
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        brands = Brand.objects.filter(name__istartswith=searched)
+        return render(request,'adminside/brand_management.html',{'brands':brands})
+    
     return render(request,'adminside/brand_management.html',{'brands':brands}) 
 
 
@@ -546,6 +569,12 @@ def product_image_management(request):
         return redirect('index')
     
     products = Product.objects.all()
+    
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        products = Product.objects.filter(name__istartswith=searched)
+        return render(request,'adminside/all_product_images.html',{'products':products})
+
     context = {
         'products':products
     }
