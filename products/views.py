@@ -77,19 +77,48 @@ def get_similar_products(request):
 
 def shop(request):
     products = Product.objects.all().select_related('brand').prefetch_related('images').order_by('-created_at')
+
+    # Get filter parameters from the request
+    category_id = request.GET.get('category')
+    brand_id = request.GET.get('brand')
+    sort_by = request.GET.get('sort')
+    
+    # Filter by category
+    if category_id:
+        products = products.filter(category__id= category_id)
+
+
+    # Filter by brand
+    if brand_id:
+        products = products.filter(brand__id= brand_id)
+
+    # sorting
+    if sort_by == 'latest':
+        print('dfsgf')
+        products = products.order_by('-created_at')
+    elif sort_by == 'low to high':
+        print('hellodvvx')
+        products = products.order_by('price')
+    elif sort_by == 'high to low':
+        print('hello')
+        products = products.order_by('-price')
+    else:
+        products = products.order_by('-created_at')    
+
+
     products_count = products.count()
     categories = Category.objects.all()
     brands = Brand.objects.all()
 
     context ={
-        'products':products,
-        'products_count':products_count,
-        'categories':categories,
-        'brands':brands,      
+        'products': products,
+        'products_count': products_count,
+        'categories': categories,
+        'brands': brands,       
       }
     return render(request,'products/shop.html',context)
 
-   
+     
 
 def product_details(request,product_id):
     product_obj = Product.objects.get(id=product_id)
