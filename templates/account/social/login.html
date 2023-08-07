@@ -150,9 +150,9 @@
                                 <input type="checkbox" id="offer">
                                 <span>Remember me</span>
                             </label> {% endcomment %}
-                            <hr>
+          <div class="or-container"><div class="line-separator"></div> <div class="or-label">or</div><div class="line-separator"></div></div>
                             <a href="{% url 'otp_login' %}" class="btn btn-block btn-md btn-black-default-hover">login with OTP</a>
-                            <div class="or-container"><div class="line-separator"></div> <div class="or-label">or</div><div class="line-separator"></div></div>
+                           
 {% comment %}                             
                             <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-md btn-black-default-hover">
                                 <span><i class="fab fa-google"></i></span> Sign Up with Google
@@ -162,11 +162,11 @@
                                 <img src="https://img.icons8.com/color/16/000000/google-logo.png" style="margin-right: 5px;">Login with Google
                             </a> {% endcomment %}
                             
-                            <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-md btn-google">
+                            {% comment %} <a href="{% provider_login_url 'google' %}" class="btn btn-block btn-md btn-google">
                                 <img src="https://img.icons8.com/color/16/000000/google-logo.png" style="margin-right: 5px;" >Login with Google
-                            </a>
+                            </a> {% endcomment %}
                             
-                            <br>
+                            
                             <hr>
                             <a href="{% url 'user_signup' %}" style="color: wheat;">New to Refined Radiance? Create an account.</a>
                             <a href="{% url 'request-new-link-from-email' %}" style="color: wheat;">Resend Email verification link.</a>
