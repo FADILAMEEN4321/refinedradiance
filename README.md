@@ -35,7 +35,7 @@ Instructions for setting up and running your project locally.
 5. Create a superuser: python manage.py createsuperuser
 6. Run the development server: python manage.py runserver
 
-
+![image](https://github.com/FADILAMEEN4321/refinedradiance/assets/129923924/60269a21-77df-48c3-afe0-ec1efdb12798)
 ![image](https://github.com/FADILAMEEN4321/refinedradiance/assets/129923924/e20b62ce-5422-4ec1-9ada-6fa8874bcc9d)
 
 
