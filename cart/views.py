@@ -154,7 +154,7 @@ def decrement_quantity(request, cart_item_id):
         return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Quantity cannot be less than 1.'}, status=400)
-
+ 
 
 
 
