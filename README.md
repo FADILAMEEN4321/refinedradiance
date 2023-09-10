@@ -53,6 +53,10 @@ Ready to set up and run your project locally? Follow these simple steps:
 ![image](https://github.com/FADILAMEEN4321/refinedradiance/assets/129923924/60269a21-77df-48c3-afe0-ec1efdb12798)
 ![image](https://github.com/FADILAMEEN4321/refinedradiance/assets/129923924/e20b62ce-5422-4ec1-9ada-6fa8874bcc9d)
 
+## About the Author
+
+This project is created and maintained by **Fadil Ameen**. If you have any questions or suggestions, feel free to reach out at [fadilameen4321@gmail.com](mailto:fadilameen4321@gmail.com).
+
 
 
 
