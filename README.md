@@ -6,16 +6,16 @@ RefinedRadiance is a modern and user-friendly eCommerce platform built using Dja
 Check out the RefinedRadiance experience for yourself at https://refinedradiance.shop/
 
 ## ✨ Key Features
-- ** 📱 Responsive Design**: A fully responsive design ensures that website looks and functions well on various devices, including desktops, tablets, and smartphones.
-- ** 🔐 User Authentication and Accounts**: Allows users to create accounts, log in, and manage their profiles.
-- ** 🔍 Search and Filters**: Implemented a robust search functionality that allows users to quickly find products they're interested in.
-- ** 🛒 Shopping Cart and Wishlist**: Enable users to add products to their shopping carts for easy tracking and eventual purchase. Additionally, offer a wishlist feature for users to save items for future reference.
-- ** 💳 Secure Checkout Process**: Implemented a secure checkout process with razorpay.
-- ** 📧 Email Verfication**: implemented a secure email verification using django-verifiy-email package.
-- ** 📱💬 Mobile OTP Login**: implemented mobile OTP login using TWILIO
+- **📱 Responsive Design**: A fully responsive design ensures that website looks and functions well on various devices, including desktops, tablets, and smartphones.
+- **🔐 User Authentication and Accounts**: Allows users to create accounts, log in, and manage their profiles.
+- **🔍 Search and Filters**: Implemented a robust search functionality that allows users to quickly find products they're interested in.
+- **🛒 Shopping Cart and Wishlist**: Enable users to add products to their shopping carts for easy tracking and eventual purchase. Additionally, offer a wishlist feature for users to save items for future reference.
+- **💳 Secure Checkout Process**: Implemented a secure checkout process with razorpay.
+- **📧 Email Verfication**: implemented a secure email verification using django-verifiy-email package.
+- **📱💬 Mobile OTP Login**: implemented mobile OTP login using TWILIO
 - ** 🌐 Social Sharing**: Integrated social media sharing buttons to enable customers to share their favorite products with their friends and followers.
 - ** 🖥️ Admin Dashboard**: implemented an admin dashboard for store owners to manage products, orders, banners, offers, coupons and other aspects of the business.
-- ** 💰 Coupon and Offers**: implemented coupon and offer for products and category.
+- **💰Coupon and Offers**: implemented coupon and offer for products and category.
 
  ## 🚀 Getting Started
 
