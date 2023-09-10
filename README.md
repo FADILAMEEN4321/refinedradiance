@@ -13,8 +13,8 @@ Check out the RefinedRadiance experience for yourself at https://refinedradiance
 - **💳 Secure Checkout Process**: Implemented a secure checkout process with razorpay.
 - **📧 Email Verfication**: implemented a secure email verification using django-verifiy-email package.
 - **📱💬 Mobile OTP Login**: implemented mobile OTP login using TWILIO
-- ** 🌐 Social Sharing**: Integrated social media sharing buttons to enable customers to share their favorite products with their friends and followers.
-- ** 🖥️ Admin Dashboard**: implemented an admin dashboard for store owners to manage products, orders, banners, offers, coupons and other aspects of the business.
+- **🌐 Social Sharing**: Integrated social media sharing buttons to enable customers to share their favorite products with their friends and followers.
+- **🖥️ Admin Dashboard**: implemented an admin dashboard for store owners to manage products, orders, banners, offers, coupons and other aspects of the business.
 - **💰Coupon and Offers**: implemented coupon and offer for products and category.
 
  ## 🚀 Getting Started
