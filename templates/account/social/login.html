@@ -126,7 +126,19 @@
         <div class="row">
             <!--login area start-->
             <div class="col-lg-6 col-md-6 p-0" >
+               
+
+
+
+
                 <div class="account_form" data-aos="fade-up" data-aos-delay="0" >
+
+                    
+
+
+
+
+
                     {% include 'includes/alerts.html' %}
                     {% comment %} <h3>login</h3> {% endcomment %}
                     <form action="#" method="POST" style="color: white;
@@ -134,6 +146,16 @@
                     {% comment %} border: 1px solid #ededed; {% endcomment %}
                     padding: 23px 20px 29px;
                     border-radius: 0px;">
+
+                    <div style="border: 1px solid #ccc; border-radius: 8px; padding: 20px; max-width: 300px; margin: 20px auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: white;">Demo Login</h2>
+                        <p style="margin-bottom: 10px;">Use the following credentials to log in:</p>
+                        
+                        <div style="font-family: 'Courier New', Courier, monospace;">
+                          <p><strong>Username:</strong> demo</p>
+                          <p><strong>Password:</strong> Demopassword@123</p>
+                        </div>
+                      </div>
                         {% csrf_token %}
                      <div class="default-form-box">
                             <label>Username <span>*</span></label>
